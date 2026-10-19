@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use App\Models\Division;
 use App\Models\Shift;
 use App\Models\User;
@@ -13,7 +14,16 @@ class MasterController extends Controller
 {
     public function divisi()
     {
-        return view('admin.divisi', ['items' => Division::withCount('users')->orderBy('name')->get()]);
+        $items = Division::with(['users' => fn ($q) => $q->where('role', 'karyawan')->orderBy('name')])
+            ->orderBy('name')->get();
+
+        return view('admin.divisi', [
+            'items' => $items,
+            // karyawan yang sudah absen hari ini (hadir/terlambat) -> untuk bar kehadiran per divisi
+            'presentIds' => Attendance::whereDate('date', today())->whereIn('status', ['hadir', 'terlambat'])->pluck('user_id')->all(),
+            'totalEmployees' => User::where('role', 'karyawan')->where('is_active', true)->count(),
+            'unassigned' => User::where('role', 'karyawan')->whereNull('division_id')->count(),
+        ]);
     }
 
     public function divisiStore(Request $r)

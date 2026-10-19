@@ -35,7 +35,10 @@
             <div class="text-sm text-slate-500">{{ $isAdmin ? 'Panel Admin' : 'Portal Karyawan' }}</div>
         </div>
         <div class="flex items-center gap-4">
-            <span class="hidden text-sm text-body sm:inline">{{ auth()->user()->name }}</span>
+            <a href="{{ route('karyawan.profil') }}" class="flex items-center gap-2 rounded-xl py-1 pr-2 hover:bg-surface-low" title="Profil saya">
+                @include('partials.avatar', ['user' => auth()->user(), 'size' => 40])
+                <span class="hidden text-sm text-body sm:inline">{{ auth()->user()->name }}</span>
+            </a>
             @include('partials.theme-toggle')
             <form method="POST" action="{{ route('logout') }}">@csrf
                 <button class="btn btn-light">Keluar</button>

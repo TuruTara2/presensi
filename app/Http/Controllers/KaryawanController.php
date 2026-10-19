@@ -55,7 +55,18 @@ class KaryawanController extends Controller
 
     public function profil(Request $request)
     {
-        return view('karyawan.profil', ['user' => $request->user()->load('division', 'shift')]);
+        $user = $request->user()->load('division', 'shift');
+
+        $rows = Attendance::where('user_id', $user->id)
+            ->whereYear('date', now()->year)->whereMonth('date', now()->month)->get();
+        $stats = [
+            'hadir' => $rows->where('status', 'hadir')->count(),
+            'terlambat' => $rows->where('status', 'terlambat')->count(),
+            'izin' => $rows->whereIn('status', ['izin', 'sakit', 'cuti'])->count(),
+            'lembur' => (int) $rows->sum('overtime_minutes'),
+        ];
+
+        return view('karyawan.profil', compact('user', 'stats'));
     }
 
     public function updateProfil(Request $request)
@@ -65,17 +76,37 @@ class KaryawanController extends Controller
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'phone' => ['nullable', 'string', 'max:20'],
-            'current_password' => ['nullable', 'required_with:password', 'current_password'],
-            'password' => ['nullable', 'min:6', 'confirmed'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'remove_photo' => ['nullable', 'boolean'],
         ]);
 
         $user->fill(collect($data)->only(['name', 'email', 'phone'])->all());
-        if (! empty($data['password'])) {
-            $user->password = $data['password'];
+
+        if ($request->hasFile('photo')) {
+            if ($user->photo) {
+                Storage::disk('public')->delete($user->photo);
+            }
+            $user->photo = $request->file('photo')->store('avatars', 'public');
+        } elseif ($request->boolean('remove_photo') && $user->photo) {
+            Storage::disk('public')->delete($user->photo);
+            $user->photo = null;
         }
+
         $user->save();
 
         return back()->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $data = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'min:6', 'confirmed'],
+        ]);
+
+        $request->user()->update(['password' => $data['password']]);
+
+        return back()->with('success', 'Password berhasil diganti.');
     }
 
     public function izinIndex(Request $request)

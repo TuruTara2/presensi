@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/riwayat', [KaryawanController::class, 'riwayat'])->name('riwayat');
         Route::get('/profil', [KaryawanController::class, 'profil'])->name('profil');
         Route::put('/profil', [KaryawanController::class, 'updateProfil'])->name('profil.update');
+        Route::put('/profil/password', [KaryawanController::class, 'updatePassword'])->name('profil.password');
         Route::get('/izin', [KaryawanController::class, 'izinIndex'])->name('izin');
         Route::post('/izin', [KaryawanController::class, 'izinStore'])->name('izin.store');
     });

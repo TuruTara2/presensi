@@ -20,7 +20,10 @@
         @forelse ($users as $u)
             <tr>
                 <td class="td">{{ $u->nip ?? '-' }}</td>
-                <td class="td"><div class="font-medium">{{ $u->name }}</div><div class="text-sm text-slate-400">{{ $u->email }}</div></td>
+                <td class="td"><div class="flex items-center gap-4">
+                    @include('partials.avatar', ['user' => $u, 'size' => 40])
+                    <div><div class="font-medium">{{ $u->name }}</div><div class="text-sm text-slate-400">{{ $u->email }}</div></div>
+                </div></td>
                 <td class="td">{{ $u->division->name ?? '-' }}</td>
                 <td class="td">{{ $u->shift ? $u->shift->name.' ('.substr($u->shift->jam_masuk,0,5).')' : '-' }}</td>
                 <td class="td">{{ ucfirst($u->role) }}</td>
