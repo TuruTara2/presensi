@@ -17,6 +17,8 @@
         ['admin.divisi', 'Divisi', 'admin.divisi'],
         ['admin.shift', 'Jam Kerja', 'admin.shift'],
         ['admin.izin', 'Persetujuan', 'admin.izin'],
+        ['admin.jaringan', 'Jaringan', 'admin.jaringan'],
+        ['admin.perangkat', 'Perangkat', 'admin.perangkat'],
         ['admin.laporan', 'Laporan', 'admin.laporan'],
     ] : [
         ['karyawan.dashboard', 'Presensi', 'karyawan.dashboard'],

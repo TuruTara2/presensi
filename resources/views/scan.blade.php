@@ -47,7 +47,7 @@
             <div class="mt-4">
                 <label class="label" for="manual">Atau input manual (scanner USB / paste payload)</label>
                 <div class="flex gap-2">
-                    <input id="manual" class="input" placeholder="ABSEN|1|2026-01-01|...">
+                    <input id="manual" class="input" placeholder="ABSEN|1|29735281|...">
                     <button id="manualBtn" class="btn btn-primary" style="height:48px">Kirim</button>
                 </div>
             </div>
@@ -102,7 +102,8 @@
         box.className = 'card ' + (ok ? 'border-success bg-success/10' : 'border-error bg-error-container');
         box.innerHTML = `<div class="font-heading text-[22px] font-semibold ${ok ? 'text-success-text' : 'text-error-on'}">${ok ? 'Berhasil' : 'Gagal'}</div>
             <div class="mt-2 text-body">${esc(d.message)}</div>
-            ${d.time ? `<div class="mt-2 text-sm text-slate-500">Jam ${esc(d.time)}</div>` : ''}`;
+            ${d.time ? `<div class="mt-2 text-sm text-slate-500">Jam ${esc(d.time)}</div>` : ''}
+            ${d.overtime_text ? `<div class="mt-2 text-sm font-semibold text-body">Lembur: ${esc(d.overtime_text)}</div>` : ''}`;
         if (ok) {
             document.getElementById('emptyRecent')?.remove();
             const li = document.createElement('li');

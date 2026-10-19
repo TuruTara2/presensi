@@ -12,7 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $shift = Shift::create(['name' => 'Reguler', 'jam_masuk' => '08:00', 'jam_pulang' => '17:00', 'toleransi_menit' => 15]);
-        $divs = collect(['IT', 'HRD', 'Keuangan'])->map(fn ($n) => Division::create(['name' => $n]));
+        $malam = Shift::create(['name' => 'Malam', 'jam_masuk' => '20:00', 'jam_pulang' => '08:00', 'toleransi_menit' => 15]);
+        $divs = collect(['IT', 'HRD', 'Keuangan', 'Keamanan'])->map(fn ($n) => Division::create(['name' => $n]));
 
         User::create([
             'name' => 'Admin Kantor', 'email' => 'admin@presensi.test', 'password' => 'password',
@@ -26,5 +27,11 @@ class DatabaseSeeder extends Seeder
                 'division_id' => $divs[$i]->id, 'shift_id' => $shift->id,
             ]);
         }
+
+        // Contoh shift malam (satpam)
+        User::create([
+            'name' => 'Joko Satpam', 'email' => 'karyawan4@presensi.test', 'password' => 'password',
+            'role' => 'karyawan', 'nip' => 'KRY004', 'division_id' => $divs[3]->id, 'shift_id' => $malam->id,
+        ]);
     }
 }

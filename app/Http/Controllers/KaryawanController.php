@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\LeaveRequest;
 use App\Services\AttendanceService;
+use App\Services\NetworkGuard;
 use App\Services\QrToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,16 +16,29 @@ class KaryawanController extends Controller
     public function dashboard(Request $request)
     {
         $user = $request->user();
-        $today = Attendance::where('user_id', $user->id)->whereDate('date', today())->first();
+        $date = AttendanceService::shiftDate($user); // shift malam: tanggal mulai shift
+        $today = Attendance::where('user_id', $user->id)->whereDate('date', $date)->first();
         $leave = LeaveRequest::where('user_id', $user->id)->where('status', 'disetujui')
-            ->whereDate('start_date', '<=', today())->whereDate('end_date', '>=', today())->first();
+            ->whereDate('start_date', '<=', $date)->whereDate('end_date', '>=', $date)->first();
 
         return view('karyawan.dashboard', [
             'today' => $today,
             'leave' => $leave,
+            'overtimeLive' => AttendanceService::liveOvertime($user, $today),
             'shift' => AttendanceService::shiftFor($user),
-            'qr' => QrToken::make($user),
+            'qr' => NetworkGuard::allows($request->ip()) ? QrToken::make($user) : null,
         ]);
+    }
+
+    /** QR terbaru (dipanggil otomatis oleh halaman karyawan tiap 30 detik). */
+    public function qr(Request $request)
+    {
+        // QR hanya diterbitkan kalau HP karyawan terhubung ke jaringan kantor
+        if (! NetworkGuard::allows($request->ip())) {
+            return response()->json(['ok' => false, 'message' => 'Tidak terhubung ke jaringan kantor.'], 403);
+        }
+
+        return response()->json(['ok' => true, 'payload' => QrToken::make($request->user())]);
     }
 
     public function riwayat(Request $request)

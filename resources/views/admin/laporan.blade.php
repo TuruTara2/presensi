@@ -17,11 +17,12 @@
     @foreach (['hadir', 'terlambat', 'izin', 'sakit', 'cuti'] as $st)
         <span class="rounded-xl bg-card px-4 py-2 ring-1 ring-slate-200">{{ ucfirst($st) }}: <b>{{ $sum[$st] ?? 0 }}</b></span>
     @endforeach
+    <span class="rounded-xl bg-card px-4 py-2 ring-1 ring-slate-200">Total lembur: <b>{{ \App\Support\Duration::format($overtimeTotal) }}</b></span>
 </div>
 
 <div class="card overflow-x-auto p-0">
     <table class="min-w-full divide-y">
-        <thead class="bg-surface-low"><tr><th class="th">Tanggal</th><th class="th">Nama</th><th class="th">Divisi</th><th class="th">Masuk</th><th class="th">Pulang</th><th class="th">Status</th><th class="th">Telat</th></tr></thead>
+        <thead class="bg-surface-low"><tr><th class="th">Tanggal</th><th class="th">Nama</th><th class="th">Divisi</th><th class="th">Masuk</th><th class="th">Pulang</th><th class="th">Status</th><th class="th">Telat</th><th class="th">Lembur</th></tr></thead>
         <tbody class="divide-y">
         @forelse ($rows as $r)
             <tr>
@@ -31,10 +32,11 @@
                 <td class="td">{{ $r->check_in ? substr($r->check_in,0,5) : '-' }}</td>
                 <td class="td">{{ $r->check_out ? substr($r->check_out,0,5) : '-' }}</td>
                 <td class="td">@include('partials.badge', ['s' => $r->status])</td>
-                <td class="td">{{ $r->late_minutes ? $r->late_minutes.' mnt' : '-' }}</td>
+                <td class="td">{{ $r->late_minutes ? \App\Support\Duration::format($r->late_minutes) : '-' }}</td>
+                <td class="td">{{ $r->overtime_minutes ? \App\Support\Duration::format($r->overtime_minutes) : '-' }}</td>
             </tr>
         @empty
-            <tr><td colspan="7" class="td py-8 text-center text-slate-400">Tidak ada data pada filter ini.</td></tr>
+            <tr><td colspan="8" class="td py-8 text-center text-slate-400">Tidak ada data pada filter ini.</td></tr>
         @endforelse
         </tbody>
     </table>

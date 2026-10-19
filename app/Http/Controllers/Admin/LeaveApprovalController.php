@@ -37,7 +37,7 @@ class LeaveApprovalController extends Controller
                 }
                 Attendance::updateOrCreate(
                     ['user_id' => $izin->user_id, 'date' => $day->toDateString()],
-                    ['status' => $izin->type, 'check_in' => null, 'check_out' => null, 'late_minutes' => 0]
+                    ['status' => $izin->type, 'check_in' => null, 'check_out' => null, 'late_minutes' => 0, 'overtime_minutes' => 0]
                 );
             }
         }

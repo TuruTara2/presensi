@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
+use App\Models\DeviceRequest;
 use App\Models\LeaveRequest;
 use App\Models\User;
 
@@ -36,6 +37,7 @@ class DashboardController extends Controller
             'leave' => $leave,
             'absent' => $absent,
             'pending' => LeaveRequest::where('status', 'pending')->count(),
+            'pendingDevices' => DeviceRequest::where('status', 'pending')->count(),
             'chartWeek' => $chartWeek,
         ]);
     }

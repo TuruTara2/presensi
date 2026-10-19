@@ -14,10 +14,12 @@ class ReportController extends Controller
         [$from, $to] = $this->range($request);
         $rows = $this->query($request, $from, $to)->paginate(20)->withQueryString();
 
-        $sum = $this->query($request, $from, $to)->get()->groupBy('status')->map->count();
+        $all = $this->query($request, $from, $to)->get();
+        $sum = $all->groupBy('status')->map->count();
+        $overtimeTotal = (int) $all->sum('overtime_minutes');
 
         return view('admin.laporan', [
-            'rows' => $rows, 'from' => $from, 'to' => $to, 'sum' => $sum,
+            'rows' => $rows, 'from' => $from, 'to' => $to, 'sum' => $sum, 'overtimeTotal' => $overtimeTotal,
             'divisions' => Division::orderBy('name')->get(),
         ]);
     }
@@ -30,11 +32,11 @@ class ReportController extends Controller
         return response()->streamDownload(function () use ($rows) {
             $out = fopen('php://output', 'w');
             fwrite($out, "\xEF\xBB\xBF"); // BOM supaya Excel baca UTF-8
-            fputcsv($out, ['Tanggal', 'NIP', 'Nama', 'Divisi', 'Jam Masuk', 'Jam Pulang', 'Status', 'Terlambat (menit)']);
+            fputcsv($out, ['Tanggal', 'NIP', 'Nama', 'Divisi', 'Jam Masuk', 'Jam Pulang', 'Status', 'Terlambat (menit)', 'Lembur (menit)']);
             foreach ($rows as $r) {
                 fputcsv($out, [
                     $r->date->format('Y-m-d'), $r->user->nip, $r->user->name, $r->user->division?->name,
-                    $r->check_in, $r->check_out, ucfirst($r->status), $r->late_minutes,
+                    $r->check_in, $r->check_out, ucfirst($r->status), $r->late_minutes, $r->overtime_minutes,
                 ]);
             }
             fclose($out);

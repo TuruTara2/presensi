@@ -72,7 +72,7 @@ class MasterController extends Controller
         return $r->validate([
             'name' => ['required', 'max:100'],
             'jam_masuk' => ['required', 'date_format:H:i'],
-            'jam_pulang' => ['required', 'date_format:H:i', 'after:jam_masuk'],
+            'jam_pulang' => ['required', 'date_format:H:i', 'different:jam_masuk'], // boleh lebih kecil = shift malam
             'toleransi_menit' => ['required', 'integer', 'min:0', 'max:240'],
         ]);
     }

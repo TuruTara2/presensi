@@ -3,13 +3,19 @@
 Aplikasi presensi karyawan berbasis QR Code. Autentikasi dibuat manual (`AuthController`), tanpa Breeze/Jetstream/Fortify.
 
 ## Cara kerja
-1. Karyawan login → halaman **Presensi Hari Ini** menampilkan QR Code pribadi (berganti tiap hari, ditandatangani HMAC).
+1. Karyawan login → halaman **Presensi Hari Ini** menampilkan QR Code pribadi. QR bersifat dinamis berbasis waktu (HMAC, diperbarui otomatis tiap 30 detik, kedaluwarsa dalam beberapa menit).
 2. Komputer kantor membuka halaman utama (`/`) = **halaman Scan QR publik** (tanpa login) → webcam membaca QR karyawan. Tombol **Masuk** di pojok kanan atas untuk login.
 3. Scan pertama = **absen masuk** (otomatis *Terlambat* jika lewat jam masuk + toleransi), scan kedua = **absen pulang**. Data langsung masuk database.
 
 ## Fitur
 **Karyawan:** login/logout, kelola profil & password, tampil QR, status presensi real-time, pengajuan izin/sakit/cuti (+lampiran), riwayat kehadiran bulanan.
 **Admin:** dashboard analisis (chart), CRUD karyawan, CRUD divisi, pengaturan jam kerja (shift) & toleransi, persetujuan izin/sakit/cuti, rekap + export CSV (buka di Excel).
+
+## Anti titip absen
+- **QR dinamis**: berbasis waktu (HMAC), diperbarui otomatis tiap 30 detik, kedaluwarsa dalam beberapa menit.
+- **Validasi IP kantor**: QR hanya terbit kalau HP karyawan terhubung ke jaringan kantor (menu admin *Jaringan*). Jika belum ada jaringan aktif, validasi nonaktif.
+- **Kunci perangkat**: satu akun karyawan terikat ke satu perangkat (browser). Login dari perangkat lain ditolak dan menunggu persetujuan admin (menu *Perangkat*). Hanya satu sesi aktif per karyawan.
+- Di belakang proxy/Cloudflare? Isi `TRUSTED_PROXIES` di `.env` agar IP asli terbaca.
 
 ## Instalasi
 Syarat: PHP >= 8.2, Composer, MySQL (XAMPP/Laragon boleh).

@@ -19,6 +19,12 @@
     </a>
 @endif
 
+@if ($pendingDevices)
+    <a href="{{ route('admin.perangkat') }}" class="mb-6 block rounded-xl bg-amber-50 px-4 py-4 text-sm text-amber-800 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-500/30">
+        Ada <b>{{ $pendingDevices }}</b> permintaan login dari perangkat baru menunggu persetujuan &rarr;
+    </a>
+@endif
+
 <div class="mb-6 grid gap-6 lg:grid-cols-3">
     <div class="card"><h2 class="mb-4 font-semibold">Statistik Hari Ini</h2><canvas id="chartToday" height="220"></canvas></div>
     <div class="card lg:col-span-2"><h2 class="mb-4 font-semibold">Kehadiran 7 Hari Terakhir</h2><canvas id="chartWeek" height="110"></canvas></div>
@@ -32,7 +38,7 @@
                 @forelse ($list as $a)
                     <li class="flex items-center justify-between py-2">
                         <span>{{ $a->user->name }} <span class="text-sm text-slate-400">{{ $a->user->division->name ?? '' }}</span></span>
-                        <span class="text-slate-500">{{ substr($a->check_in, 0, 5) }}@if($a->late_minutes) &middot; +{{ $a->late_minutes }}m @endif</span>
+                        <span class="text-slate-500">{{ substr($a->check_in, 0, 5) }}@if($a->late_minutes) &middot; +{{ \App\Support\Duration::format($a->late_minutes) }} @endif</span>
                     </li>
                 @empty
                     <li class="py-4 text-center text-slate-400">Belum ada data.</li>

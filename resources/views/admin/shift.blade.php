@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Jam Kerja & Toleransi Keterlambatan')
 @section('content')
-<p class="mb-4 text-sm text-slate-500">Karyawan dianggap <b>terlambat</b> jika scan masuk melewati <i>jam masuk + toleransi</i>.</p>
+<p class="mb-4 text-sm text-slate-500">Karyawan dianggap <b>terlambat</b> jika scan masuk melewati <i>jam masuk + toleransi</i>. Jam pulang yang lebih kecil dari jam masuk (mis. 20:00 &rarr; 08:00) dianggap <b>shift malam</b> yang melewati tengah malam. Scan pulang setelah jam pulang dihitung <b>lembur</b>.</p>
 <form method="POST" action="{{ route('admin.shift.store') }}" class="card mb-6 grid items-end gap-4 sm:grid-cols-5">
     @csrf
     <div class="sm:col-span-2"><label class="label">Nama Shift Baru</label><input name="name" class="input" required></div>
@@ -22,7 +22,7 @@
             <div><label class="label">Toleransi (mnt)</label><input type="number" name="toleransi_menit" value="{{ $s->toleransi_menit }}" min="0" class="input" required></div>
             <div class="sm:col-span-5 flex items-center gap-2">
                 <button class="btn-light">Simpan</button>
-                <span class="text-sm text-slate-400">{{ $s->users_count }} karyawan memakai shift ini</span>
+                <span class="text-sm text-slate-400">{{ $s->users_count }} karyawan memakai shift ini {{ $s->isOvernight() ? '· shift malam' : '' }}</span>
             </div>
         </form>
         <form method="POST" action="{{ route('admin.shift.destroy', $s) }}" onsubmit="return confirm('Hapus shift ini?')">

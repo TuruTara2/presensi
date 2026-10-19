@@ -23,8 +23,9 @@ Route::middleware('auth')->group(function () {
         : redirect()->route('karyawan.dashboard'))->name('dashboard');
 
     // ---- Karyawan
-    Route::prefix('karyawan')->name('karyawan.')->group(function () {
+    Route::prefix('karyawan')->name('karyawan.')->middleware('device')->group(function () {
         Route::get('/', [KaryawanController::class, 'dashboard'])->name('dashboard');
+        Route::get('/qr', [KaryawanController::class, 'qr'])->name('qr');
         Route::get('/riwayat', [KaryawanController::class, 'riwayat'])->name('riwayat');
         Route::get('/profil', [KaryawanController::class, 'profil'])->name('profil');
         Route::put('/profil', [KaryawanController::class, 'updateProfil'])->name('profil.update');
@@ -50,6 +51,15 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/izin', [Admin\LeaveApprovalController::class, 'index'])->name('izin');
         Route::put('/izin/{izin}', [Admin\LeaveApprovalController::class, 'decide'])->name('izin.decide');
+
+        Route::get('/jaringan', [Admin\NetworkController::class, 'index'])->name('jaringan');
+        Route::post('/jaringan', [Admin\NetworkController::class, 'store'])->name('jaringan.store');
+        Route::put('/jaringan/{jaringan}', [Admin\NetworkController::class, 'toggle'])->name('jaringan.toggle');
+        Route::delete('/jaringan/{jaringan}', [Admin\NetworkController::class, 'destroy'])->name('jaringan.destroy');
+
+        Route::get('/perangkat', [Admin\DeviceController::class, 'index'])->name('perangkat');
+        Route::put('/perangkat/permintaan/{permintaan}', [Admin\DeviceController::class, 'decide'])->name('perangkat.decide');
+        Route::delete('/perangkat/{karyawan}', [Admin\DeviceController::class, 'reset'])->name('perangkat.reset');
 
         Route::get('/laporan', [Admin\ReportController::class, 'index'])->name('laporan');
         Route::get('/laporan/export', [Admin\ReportController::class, 'export'])->name('laporan.export');

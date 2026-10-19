@@ -13,7 +13,14 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminOnly::class,
+            'device' => \App\Http\Middleware\EnsureBoundDevice::class,
         ]);
+
+        // Jika aplikasi berada di belakang proxy/Cloudflare/load balancer, isi TRUSTED_PROXIES di .env
+        // (contoh: TRUSTED_PROXIES=* atau daftar IP dipisah koma) agar IP asli pengunjung terbaca.
+        if ($proxies = env('TRUSTED_PROXIES')) {
+            $middleware->trustProxies(at: $proxies === '*' ? '*' : explode(',', $proxies));
+        }
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
