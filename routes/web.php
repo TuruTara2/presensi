@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 // Halaman scan QR publik (sebelum login)
 Route::get('/', [ScanController::class, 'index'])->name('scan');
+Route::post('/scan/verify', [ScanController::class, 'verify'])->middleware('throttle:60,1')->name('scan.verify');
 Route::post('/scan', [ScanController::class, 'process'])->middleware('throttle:60,1')->name('scan.process');
 
 Route::middleware('guest')->group(function () {
@@ -65,5 +66,6 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/laporan', [Admin\ReportController::class, 'index'])->name('laporan');
         Route::get('/laporan/export', [Admin\ReportController::class, 'export'])->name('laporan.export');
+        Route::get('/laporan/foto/{attendance}/{type}', [Admin\ReportController::class, 'foto'])->whereIn('type', ['masuk', 'pulang'])->name('laporan.foto');
     });
 });

@@ -8,6 +8,7 @@ use App\Models\Shift;
 use App\Models\User;
 use App\Support\Duration;
 use Carbon\Carbon;
+use Illuminate\Http\UploadedFile;
 
 class AttendanceService
 {
@@ -78,7 +79,7 @@ class AttendanceService
     }
 
     /** Proses hasil scan QR: absen masuk atau pulang. */
-    public static function scan(User $user): array
+    public static function scan(User $user, ?UploadedFile $photo = null): array
     {
         if (! $user->is_active) {
             return ['ok' => false, 'message' => 'Akun karyawan nonaktif.'];
@@ -111,6 +112,7 @@ class AttendanceService
                 $att->status = 'hadir';
                 $att->late_minutes = 0;
             }
+            $att->check_in_photo = self::storePhoto($photo, $user, 'masuk');
             $att->save();
 
             return [
@@ -130,6 +132,7 @@ class AttendanceService
 
             $att->check_out = $now->format('H:i:s');
             $att->overtime_minutes = $now->gt($end) ? (int) floor(abs($end->diffInMinutes($now))) : 0;
+            $att->check_out_photo = self::storePhoto($photo, $user, 'pulang');
             $att->save();
 
             return [
@@ -143,6 +146,20 @@ class AttendanceService
         }
 
         return ['ok' => false, 'message' => "{$user->name} sudah absen masuk & pulang hari ini."];
+    }
+
+    /** Simpan foto scan di disk privat (bukan public), hanya bisa dilihat admin lewat route khusus. */
+    private static function storePhoto(?UploadedFile $photo, User $user, string $type): ?string
+    {
+        if (! $photo) {
+            return null;
+        }
+
+        return $photo->storeAs(
+            'attendance/'.now()->format('Y-m'),
+            $user->id.'_'.now()->format('Ymd_His').'_'.$type.'.jpg',
+            'local'
+        );
     }
 
     private static function minutes(string $time): int

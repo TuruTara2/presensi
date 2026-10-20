@@ -22,7 +22,7 @@
 
 <div class="card overflow-x-auto p-0">
     <table class="min-w-full divide-y">
-        <thead class="bg-surface-low"><tr><th class="th">Tanggal</th><th class="th">Nama</th><th class="th">Divisi</th><th class="th">Masuk</th><th class="th">Pulang</th><th class="th">Status</th><th class="th">Telat</th><th class="th">Lembur</th></tr></thead>
+        <thead class="bg-surface-low"><tr><th class="th">Tanggal</th><th class="th">Nama</th><th class="th">Divisi</th><th class="th">Masuk</th><th class="th">Pulang</th><th class="th">Status</th><th class="th">Telat</th><th class="th">Lembur</th><th class="th">Verifikasi Wajah</th></tr></thead>
         <tbody class="divide-y">
         @forelse ($rows as $r)
             <tr>
@@ -34,9 +34,29 @@
                 <td class="td">@include('partials.badge', ['s' => $r->status])</td>
                 <td class="td">{{ $r->late_minutes ? \App\Support\Duration::format($r->late_minutes) : '-' }}</td>
                 <td class="td">{{ $r->overtime_minutes ? \App\Support\Duration::format($r->overtime_minutes) : '-' }}</td>
+                <td class="td">
+                    <div class="flex items-start gap-2">
+                        @if ($r->check_in_photo || $r->check_out_photo)
+                            <div class="text-center text-xs text-slate-500" title="Foto profil akun (pembanding)">
+                                @include('partials.avatar', ['user' => $r->user, 'size' => 48])
+                                Akun
+                            </div>
+                            <span class="self-center text-slate-300">→</span>
+                        @endif
+                        @foreach (['masuk' => $r->check_in_photo, 'pulang' => $r->check_out_photo] as $tipe => $foto)
+                            @if ($foto)
+                                <a href="{{ route('admin.laporan.foto', [$r, $tipe]) }}" target="_blank" title="Foto {{ $tipe }}" class="block text-center text-xs text-slate-500">
+                                    <img src="{{ route('admin.laporan.foto', [$r, $tipe]) }}" loading="lazy" alt="Foto {{ $tipe }} {{ $r->user->name }}" class="h-12 w-12 rounded-lg object-cover ring-1 ring-slate-200">
+                                    {{ ucfirst($tipe) }}
+                                </a>
+                            @endif
+                        @endforeach
+                        @if (! $r->check_in_photo && ! $r->check_out_photo)<span class="text-slate-400">-</span>@endif
+                    </div>
+                </td>
             </tr>
         @empty
-            <tr><td colspan="8" class="td py-8 text-center text-slate-400">Tidak ada data pada filter ini.</td></tr>
+            <tr><td colspan="9" class="td py-8 text-center text-slate-400">Tidak ada data pada filter ini.</td></tr>
         @endforelse
         </tbody>
     </table>

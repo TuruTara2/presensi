@@ -31,7 +31,7 @@
 
 <main class="mx-auto max-w-page px-4 py-8 md:px-6">
     <h1 class="h3 mb-2">Scan QR Presensi</h1>
-    <p class="mb-6 text-sm text-body">Tunjukkan QR Code dari akun kamu ke kamera. Scan pertama untuk absen masuk, scan kedua untuk absen pulang.</p>
+    <p class="mb-6 text-sm text-body">Tunjukkan QR Code dari akun kamu ke kamera. Scan pertama untuk absen masuk, scan kedua untuk absen pulang. Setelah QR terbaca, kamu akan difoto wajah untuk verifikasi.</p>
 
     <div class="grid gap-6 lg:grid-cols-2">
         <div class="card">
@@ -42,7 +42,20 @@
                     <div id="date" class="text-sm text-slate-500"></div>
                 </div>
             </div>
-            <div id="reader" class="overflow-hidden rounded-xl bg-slate-100"></div>
+            <div class="relative">
+                <div id="reader" class="overflow-hidden rounded-xl bg-slate-100"></div>
+                {{-- Tahap 2: foto wajah (muncul setelah QR terbaca) --}}
+                <div id="faceStep" style="display:none;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:space-between;padding:16px;border-radius:12px;background:rgba(0,0,0,.35);color:#fff;text-align:center;z-index:10">
+                    <div>
+                        <div id="faceName" style="font-weight:600;font-size:18px"></div>
+                        <div style="font-size:14px">Hadap kamera, lepas masker/topi. Foto wajah diambil sebentar lagi.</div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:center">
+                        <span id="faceCount" style="font-size:56px;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.6)"></span>
+                    </div>
+                    <div style="font-size:13px;opacity:.9">Posisikan wajah di dalam kotak scanner</div>
+                </div>
+            </div>
             <p class="mt-4 text-sm text-slate-500">Izinkan akses kamera. Kamera hanya jalan di <b>HTTPS</b> atau <b>localhost</b>.</p>
             <div class="mt-4">
                 <label class="label" for="manual">Atau input manual (scanner USB / paste payload)</label>
@@ -80,30 +93,84 @@
     }
     tick(); setInterval(tick, 1000);
 
+    // Ambil 1 frame dari video kamera scanner, kecilkan (maks 640px) lalu jadikan JPEG.
+    function capturePhoto() {
+        return new Promise(resolve => {
+            try {
+                const v = document.querySelector('#reader video');
+                if (!v || !v.videoWidth) return resolve(null);
+                const scale = Math.min(1, 640 / v.videoWidth);
+                const c = document.createElement('canvas');
+                c.width = Math.round(v.videoWidth * scale);
+                c.height = Math.round(v.videoHeight * scale);
+                c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+                c.toBlob(b => resolve(b), 'image/jpeg', 0.8);
+            } catch (e) { resolve(null); }
+        });
+    }
+
+    const faceStep = document.getElementById('faceStep');
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    // Tahap 2: minta karyawan hadap kamera, hitung mundur 3 detik, lalu ambil foto wajah.
+    async function faceCountdown(name) {
+        document.getElementById('faceName').textContent = 'Halo, ' + name + '!';
+        faceStep.style.display = 'flex';
+        for (let i = 3; i >= 1; i--) {
+            document.getElementById('faceCount').textContent = i;
+            await sleep(1000);
+        }
+        document.getElementById('faceCount').textContent = '';
+        const photo = await capturePhoto();
+        faceStep.style.background = '#fff'; // efek blitz
+        await sleep(150);
+        return photo;
+    }
+
     async function send(payload) {
         // abaikan QR yang sama selama 8 detik (kamera masih melihat QR yang sama)
         if (busy || (payload === lastPayload && Date.now() - lastAt < 8000)) return;
         busy = true; lastPayload = payload; lastAt = Date.now();
+        const headers = { 'Accept': 'application/json', 'X-CSRF-TOKEN': csrf };
         try {
-            const res = await fetch(@json(route('scan.process')), {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-CSRF-TOKEN': csrf },
+            // Tahap 1: cek QR
+            const vr = await fetch(@json(route('scan.verify')), {
+                method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' },
                 body: JSON.stringify({ payload })
             });
+            const v = await vr.json();
+            if (!vr.ok) { show(false, v); return; }
+
+            // Tahap 2: foto wajah
+            const photo = await faceCountdown(v.name);
+            if (!photo) { show(false, { message: 'Foto wajah gagal diambil. Coba scan QR lagi.' }); return; }
+
+            // Tahap 3: kirim QR + foto, absen dicatat
+            const fd = new FormData();
+            fd.append('payload', payload);
+            fd.append('photo', photo, 'wajah.jpg');
+            const res = await fetch(@json(route('scan.process')), { method: 'POST', headers, body: fd });
             const d = await res.json();
-            show(res.ok, d);
+            show(res.ok, d.message ? d : { message: Object.values(d.errors || {}).flat().join(' ') || 'Gagal memproses.' }, photo);
         } catch (e) {
             show(false, { message: 'Gagal terhubung ke server.' });
+        } finally {
+            faceStep.style.display = 'none'; faceStep.style.background = 'rgba(0,0,0,.35)';
+            lastAt = Date.now(); // jangan langsung proses ulang QR yang sama
+            setTimeout(() => busy = false, 2500);
         }
-        setTimeout(() => busy = false, 2500);
     }
 
-    function show(ok, d) {
+    let previewUrl = null;
+    function show(ok, d, photo) {
+        if (previewUrl) { URL.revokeObjectURL(previewUrl); previewUrl = null; }
+        if (photo && ok) previewUrl = URL.createObjectURL(photo);
         box.className = 'card ' + (ok ? 'border-success bg-success/10' : 'border-error bg-error-container');
         box.innerHTML = `<div class="font-heading text-[22px] font-semibold ${ok ? 'text-success-text' : 'text-error-on'}">${ok ? 'Berhasil' : 'Gagal'}</div>
             <div class="mt-2 text-body">${esc(d.message)}</div>
             ${d.time ? `<div class="mt-2 text-sm text-slate-500">Jam ${esc(d.time)}</div>` : ''}
-            ${d.overtime_text ? `<div class="mt-2 text-sm font-semibold text-body">Lembur: ${esc(d.overtime_text)}</div>` : ''}`;
+            ${d.overtime_text ? `<div class="mt-2 text-sm font-semibold text-body">Lembur: ${esc(d.overtime_text)}</div>` : ''}
+            ${previewUrl ? `<img src="${previewUrl}" alt="Foto wajah" class="mt-3 h-24 w-24 rounded-xl object-cover ring-1 ring-slate-200">` : ''}`;
         if (ok) {
             const item = { name: d.name, type: d.type, time: d.time, status: d.status, day: todayKey() };
             addRecent(item);
