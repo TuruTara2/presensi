@@ -25,6 +25,12 @@ class User extends Authenticatable
         ];
     }
 
+    /** Email reset password pakai template Bahasa Indonesia. */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === 'admin';

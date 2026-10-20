@@ -14,6 +14,10 @@
             <p class="mt-2 text-sm text-body">Masuk dengan akun karyawan atau admin.</p>
         </div>
 
+        @if (session('status'))
+            <div class="mb-6 rounded-xl border border-success/30 bg-success/10 px-4 py-4 text-sm text-success-text">{{ session('status') }}</div>
+        @endif
+
         <form method="POST" action="{{ route('login') }}" class="space-y-6">
             @csrf
             <div>
@@ -25,9 +29,12 @@
                 <label class="label" for="password">Password</label>
                 @include('partials.password-input', ['name' => 'password', 'required' => true, 'autocomplete' => 'current-password'])
             </div>
-            <label class="flex items-center gap-2 text-sm text-body">
-                <input type="checkbox" name="remember"> Ingat saya
-            </label>
+            <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 text-sm text-body">
+                    <input type="checkbox" name="remember"> Ingat saya
+                </label>
+                <a href="{{ route('password.request') }}" class="text-sm font-semibold text-primary hover:underline">Lupa password?</a>
+            </div>
             <button class="btn btn-lg btn-primary w-full">Masuk</button>
         </form>
         <a href="{{ route('scan') }}" class="mt-6 block text-center text-sm font-semibold text-primary hover:underline">Kembali ke halaman scan QR</a>
