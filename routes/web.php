@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('karyawan')->name('karyawan.')->middleware('device')->group(function () {
         Route::get('/', [KaryawanController::class, 'dashboard'])->name('dashboard');
         Route::get('/qr', [KaryawanController::class, 'qr'])->name('qr');
+        Route::get('/status', [KaryawanController::class, 'status'])->name('status');
         Route::get('/riwayat', [KaryawanController::class, 'riwayat'])->name('riwayat');
         Route::get('/profil', [KaryawanController::class, 'profil'])->name('profil');
         Route::put('/profil', [KaryawanController::class, 'updateProfil'])->name('profil.update');

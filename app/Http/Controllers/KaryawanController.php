@@ -13,7 +13,8 @@ use Illuminate\Validation\Rule;
 
 class KaryawanController extends Controller
 {
-    public function dashboard(Request $request)
+    /** Data status hari ini (dipakai halaman dashboard & endpoint refresh otomatis). */
+    private function statusData(Request $request): array
     {
         $user = $request->user();
         $date = AttendanceService::shiftDate($user); // shift malam: tanggal mulai shift
@@ -21,13 +22,26 @@ class KaryawanController extends Controller
         $leave = LeaveRequest::where('user_id', $user->id)->where('status', 'disetujui')
             ->whereDate('start_date', '<=', $date)->whereDate('end_date', '>=', $date)->first();
 
-        return view('karyawan.dashboard', [
+        return [
             'today' => $today,
             'leave' => $leave,
             'overtimeLive' => AttendanceService::liveOvertime($user, $today),
             'shift' => AttendanceService::shiftFor($user),
-            'qr' => NetworkGuard::allows($request->ip()) ? QrToken::make($user) : null,
+        ];
+    }
+
+    public function dashboard(Request $request)
+    {
+        return view('karyawan.dashboard', $this->statusData($request) + [
+            'qr' => NetworkGuard::allows($request->ip()) ? QrToken::make($request->user()) : null,
         ]);
+    }
+
+    /** HTML kartu "Status Hari Ini" terbaru (dipanggil otomatis oleh dashboard tanpa refresh). */
+    public function status(Request $request)
+    {
+        return response(view('karyawan.partials.status', $this->statusData($request))->render())
+            ->header('Cache-Control', 'no-store');
     }
 
     /** QR terbaru (dipanggil otomatis oleh halaman karyawan tiap 30 detik). */

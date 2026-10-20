@@ -105,13 +105,38 @@
             ${d.time ? `<div class="mt-2 text-sm text-slate-500">Jam ${esc(d.time)}</div>` : ''}
             ${d.overtime_text ? `<div class="mt-2 text-sm font-semibold text-body">Lembur: ${esc(d.overtime_text)}</div>` : ''}`;
         if (ok) {
-            document.getElementById('emptyRecent')?.remove();
-            const li = document.createElement('li');
-            li.className = 'flex justify-between py-2';
-            li.innerHTML = `<span>${esc(d.name)}</span><span class="text-slate-500">${d.type === 'masuk' ? 'Masuk' : 'Pulang'} ${esc(d.time.slice(0,5))} (${esc(d.status)})</span>`;
-            document.getElementById('recent').prepend(li);
+            const item = { name: d.name, type: d.type, time: d.time, status: d.status, day: todayKey() };
+            addRecent(item);
+            saveRecent(item);
         }
     }
+
+    // ---- Daftar "Scan di sesi ini": disimpan di browser ini, tetap ada setelah refresh / ganti tema.
+    // Hanya scan hari ini yang ditampilkan (otomatis reset besok), maksimal 30 item.
+    const RECENT_KEY = 'scan_recent_v1', RECENT_MAX = 30;
+    const todayKey = () => new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD (waktu lokal)
+
+    function addRecent(d) {
+        document.getElementById('emptyRecent')?.remove();
+        const li = document.createElement('li');
+        li.className = 'flex justify-between py-2';
+        li.innerHTML = `<span>${esc(d.name)}</span><span class="text-slate-500">${d.type === 'masuk' ? 'Masuk' : 'Pulang'} ${esc(String(d.time).slice(0,5))} (${esc(d.status)})</span>`;
+        document.getElementById('recent').prepend(li);
+    }
+    function loadRecent() {
+        try {
+            const list = (JSON.parse(localStorage.getItem(RECENT_KEY)) || []).filter(x => x.day === todayKey());
+            list.forEach(addRecent); // urutan lama -> baru, prepend jadi terbaru di atas
+        } catch (e) {}
+    }
+    function saveRecent(item) {
+        try {
+            const list = (JSON.parse(localStorage.getItem(RECENT_KEY)) || []).filter(x => x.day === todayKey());
+            list.push(item);
+            localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(-RECENT_MAX)));
+        } catch (e) {}
+    }
+    loadRecent();
 
     const scanner = new Html5Qrcode('reader');
     scanner.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 240, height: 240 } },
