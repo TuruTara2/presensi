@@ -45,7 +45,7 @@
         </div>
 
         @if ($day['rows']->isEmpty())
-            <div class="px-6 py-5 text-sm text-slate-400">Tidak ada data presensi.</div>
+            <div class="px-6 py-5 text-sm text-slate-400">{{ $day['isFuture'] ? 'Belum berlangsung.' : 'Tidak ada data presensi.' }}</div>
         @else
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y">

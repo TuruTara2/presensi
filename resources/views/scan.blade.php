@@ -7,8 +7,10 @@
     <title>Scan QR Presensi - {{ config('app.name') }}</title>
     @include('partials.head')
     <style>
-        /* paksa preview kamera TIDAK mirror */
+        /* preview kamera apa adanya (tidak di-mirror oleh browser) */
         #reader video { transform: none !important; -webkit-transform: none !important; }
+        /* kalau sumber kamera sendiri sudah mirror (driver/webcam), tombol "Balik kamera" membaliknya */
+        #reader.flip video { transform: scaleX(-1) !important; -webkit-transform: scaleX(-1) !important; }
     </style>
 </head>
 <body class="min-h-screen bg-page">
@@ -93,6 +95,12 @@
     }
     tick(); setInterval(tick, 1000);
 
+    // Kamera di perangkat scanner ini mengirim gambar mirror (dari driver/webcam), jadi dibalik otomatis.
+    // Preview dan foto wajah yang disimpan sama-sama dibalik. Ubah ke false kalau kamera diganti dan gambarnya sudah normal.
+    const FLIP_CAMERA = true;
+    const flipped = FLIP_CAMERA;
+    document.getElementById('reader').classList.toggle('flip', flipped);
+
     // Ambil 1 frame dari video kamera scanner, kecilkan (maks 640px) lalu jadikan JPEG.
     function capturePhoto() {
         return new Promise(resolve => {
@@ -103,7 +111,9 @@
                 const c = document.createElement('canvas');
                 c.width = Math.round(v.videoWidth * scale);
                 c.height = Math.round(v.videoHeight * scale);
-                c.getContext('2d').drawImage(v, 0, 0, c.width, c.height);
+                const ctx = c.getContext('2d');
+                if (flipped) { ctx.translate(c.width, 0); ctx.scale(-1, 1); } // foto sama dengan yang terlihat di preview
+                ctx.drawImage(v, 0, 0, c.width, c.height);
                 c.toBlob(b => resolve(b), 'image/jpeg', 0.8);
             } catch (e) { resolve(null); }
         });

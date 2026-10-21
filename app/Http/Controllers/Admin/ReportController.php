@@ -27,15 +27,24 @@ class ReportController extends Controller
         $all = $this->query($request, $from, $to)->get();
         $byDate = $all->groupBy(fn ($r) => $r->date->toDateString());
 
-        // Satu blok per hari (Senin-Minggu, dipotong di batas bulan), hari tanpa data tetap tampil
+        // Satu blok per hari (dipotong di batas bulan), hari tanpa data tetap tampil
+        $today = now()->startOfDay();
         $days = [];
         for ($d = $week['from']->copy(); $d <= $week['to']; $d->addDay()) {
             $days[] = [
+                'date' => $d->copy(),
                 'label' => self::HARI[$d->dayOfWeekIso - 1].', '.$d->day.' '.self::BULAN[$d->month - 1].' '.$d->year,
                 'isToday' => $d->isToday(),
+                'isFuture' => $d > $today,
                 'rows' => $byDate->get($d->toDateString(), collect()),
             ];
         }
+
+        // Urutan tampil: hari ini paling atas, lalu hari sebelumnya menurun (20, 19, ...),
+        // dan hari yang belum datang ditaruh paling bawah berurutan.
+        $past = collect($days)->where('isFuture', false)->sortByDesc(fn ($x) => $x['date']->timestamp);
+        $future = collect($days)->where('isFuture', true)->sortBy(fn ($x) => $x['date']->timestamp);
+        $days = $past->concat($future)->values()->all();
 
         return view('admin.laporan', [
             'days' => $days,
