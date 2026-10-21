@@ -11,21 +11,31 @@
     <div class="card w-full max-w-md">
         <div class="mb-8">
             <div class="font-heading text-[28px] font-semibold leading-tight text-ink">Presensi <span class="text-primary">QR</span></div>
-            <p class="mt-2 text-sm text-body">Masukkan email akunmu, nanti kami kirim link untuk mengganti password.</p>
+            <p class="mt-2 text-sm text-body">Lupa password? Verifikasi dengan email dan NIP-mu, lalu buat password baru. Harus dilakukan dari perangkat yang terdaftar.</p>
         </div>
 
-        @if (session('status'))
-            <div class="mb-6 rounded-xl border border-success/30 bg-success/10 px-4 py-4 text-sm text-success-text">{{ session('status') }}</div>
-        @endif
-
-        <form method="POST" action="{{ route('password.email') }}" class="space-y-6">
+        <form method="POST" action="{{ route('password.update') }}" class="space-y-6">
             @csrf
             <div>
                 <label class="label" for="email">Email</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus class="input">
                 @error('email')<p class="mt-2 text-sm text-error">{{ $message }}</p>@enderror
             </div>
-            <button class="btn btn-lg btn-primary w-full">Kirim Link Reset</button>
+            <div>
+                <label class="label" for="nip">NIP</label>
+                <input id="nip" type="text" name="nip" value="{{ old('nip') }}" required class="input" autocomplete="off">
+                @error('nip')<p class="mt-2 text-sm text-error">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <label class="label" for="password">Password baru</label>
+                @include('partials.password-input', ['name' => 'password', 'required' => true, 'autocomplete' => 'new-password'])
+                @error('password')<p class="mt-2 text-sm text-error">{{ $message }}</p>@enderror
+            </div>
+            <div>
+                <label class="label" for="password_confirmation">Ulangi password baru</label>
+                @include('partials.password-input', ['name' => 'password_confirmation', 'required' => true, 'autocomplete' => 'new-password'])
+            </div>
+            <button class="btn btn-lg btn-primary w-full">Ganti Password</button>
         </form>
         <a href="{{ route('login') }}" class="mt-6 block text-center text-sm font-semibold text-primary hover:underline">Kembali ke halaman masuk</a>
     </div>

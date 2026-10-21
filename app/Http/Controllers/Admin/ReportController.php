@@ -5,22 +5,46 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Division;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
+    private const HARI = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+    private const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
     public function index(Request $request)
     {
-        [$from, $to] = $this->range($request);
-        $rows = $this->query($request, $from, $to)->paginate(20)->withQueryString();
+        $month = $this->month($request);
+        $weeks = $this->weeks($month);
+        $active = $this->activeWeek($request, $month, $weeks);
+        $week = $weeks[$active - 1];
+
+        $from = $week['from']->toDateString();
+        $to = $week['to']->toDateString();
 
         $all = $this->query($request, $from, $to)->get();
-        $sum = $all->groupBy('status')->map->count();
-        $overtimeTotal = (int) $all->sum('overtime_minutes');
+        $byDate = $all->groupBy(fn ($r) => $r->date->toDateString());
+
+        // Satu blok per hari (Senin-Minggu, dipotong di batas bulan), hari tanpa data tetap tampil
+        $days = [];
+        for ($d = $week['from']->copy(); $d <= $week['to']; $d->addDay()) {
+            $days[] = [
+                'label' => self::HARI[$d->dayOfWeekIso - 1].', '.$d->day.' '.self::BULAN[$d->month - 1].' '.$d->year,
+                'isToday' => $d->isToday(),
+                'rows' => $byDate->get($d->toDateString(), collect()),
+            ];
+        }
 
         return view('admin.laporan', [
-            'rows' => $rows, 'from' => $from, 'to' => $to, 'sum' => $sum, 'overtimeTotal' => $overtimeTotal,
+            'days' => $days,
+            'weeks' => $weeks,
+            'active' => $active,
+            'bulan' => $month->format('Y-m'),
+            'bulanLabel' => self::BULAN[$month->month - 1].' '.$month->year,
+            'sum' => $all->groupBy('status')->map->count(),
+            'overtimeTotal' => (int) $all->sum('overtime_minutes'),
             'divisions' => Division::orderBy('name')->get(),
         ]);
     }
@@ -58,18 +82,69 @@ class ReportController extends Controller
         ]);
     }
 
-    private function range(Request $request): array
+    /** Bulan yang dipilih (format Y-m), default bulan ini. */
+    private function month(Request $request): Carbon
     {
-        if ($request->filled('bulan')) {
-            $d = \Carbon\Carbon::parse($request->bulan.'-01');
+        $bulan = (string) $request->input('bulan');
 
-            return [$d->startOfMonth()->toDateString(), $d->endOfMonth()->toDateString()];
+        return preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $bulan)
+            ? Carbon::parse($bulan.'-01')->startOfDay()
+            : now()->startOfMonth();
+    }
+
+    /** Minggu dalam bulan: blok Senin-Minggu, minggu pertama/terakhir dipotong di batas bulan. */
+    private function weeks(Carbon $month): array
+    {
+        $weeks = [];
+        $end = $month->copy()->endOfMonth()->startOfDay();
+
+        for ($cursor = $month->copy()->startOfMonth(); $cursor <= $end; $cursor = $cursor->copy()->addDay()) {
+            $weekEnd = $cursor->copy()->addDays(7 - $cursor->dayOfWeekIso); // sampai hari Minggu
+            if ($weekEnd > $end) {
+                $weekEnd = $end->copy();
+            }
+            $weeks[] = [
+                'no' => count($weeks) + 1,
+                'from' => $cursor->copy(),
+                'to' => $weekEnd->copy(),
+                'range' => $cursor->day.'-'.$weekEnd->day.' '.mb_substr(self::BULAN[$weekEnd->month - 1], 0, 3),
+            ];
+            $cursor = $weekEnd->copy();
         }
 
-        return [
-            $request->input('from', now()->startOfMonth()->toDateString()),
-            $request->input('to', now()->toDateString()),
-        ];
+        return $weeks;
+    }
+
+    /** Nomor minggu aktif: pilihan user, atau minggu yang memuat hari ini (kalau bulan ini), atau minggu 1. */
+    private function activeWeek(Request $request, Carbon $month, array $weeks): int
+    {
+        if ($request->filled('minggu')) {
+            return max(1, min(count($weeks), (int) $request->minggu));
+        }
+        if ($month->isSameMonth(now())) {
+            foreach ($weeks as $w) {
+                if (now()->between($w['from']->copy()->startOfDay(), $w['to']->copy()->endOfDay())) {
+                    return $w['no'];
+                }
+            }
+        }
+
+        return 1;
+    }
+
+    /** Rentang tanggal untuk export: 1 bulan penuh, atau 1 minggu kalau ada parameter minggu. */
+    private function range(Request $request): array
+    {
+        $month = $this->month($request);
+
+        if ($request->filled('minggu')) {
+            $weeks = $this->weeks($month);
+            $w = $weeks[$this->activeWeek($request, $month, $weeks) - 1];
+
+            return [$w['from']->toDateString(), $w['to']->toDateString()];
+        }
+
+        return [$month->copy()->startOfMonth()->toDateString(), $month->copy()->endOfMonth()->toDateString()];
     }
 
     private function query(Request $request, string $from, string $to)
@@ -77,6 +152,6 @@ class ReportController extends Controller
         return Attendance::with('user.division')
             ->whereBetween('date', [$from, $to])
             ->when($request->division_id, fn ($q, $d) => $q->whereHas('user', fn ($u) => $u->where('division_id', $d)))
-            ->orderByDesc('date')->orderBy('check_in');
+            ->orderBy('date')->orderBy('check_in');
     }
 }
