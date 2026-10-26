@@ -12,7 +12,14 @@
         </div>
 
         <div id="qrWrap" class="flex justify-center {{ $qr ? '' : 'hidden' }}">{{-- Latar QR selalu putih + pinggiran lebar (quiet zone), supaya tetap terbaca scanner di mode gelap --}}
-            <div id="qrcode" style="background:#fff;padding:28px;border-radius:16px;line-height:0"></div></div>
+            <div id="qrcode" onclick="openQrFull()" title="Ketuk untuk layar penuh" style="background:#fff;padding:clamp(20px,8vw,40px);border-radius:16px;line-height:0;cursor:zoom-in;max-width:100%"></div></div>
+        <p id="qrHint" class="mt-2 text-xs text-slate-400 {{ $qr ? '' : 'hidden' }}">Susah dipindai? Ketuk QR untuk tampilan layar penuh.</p>
+
+        {{-- Layar penuh putih: QR besar di atas latar putih, paling mudah dibaca kamera (terutama saat mode gelap) --}}
+        <div id="qrFull" onclick="closeQrFull()" style="display:none;position:fixed;inset:0;z-index:50;background:#fff;flex-direction:column;align-items:center;justify-content:center;cursor:zoom-out">
+            <div id="qrBig" style="line-height:0"></div>
+            <p style="margin-top:24px;font-size:14px;color:#444">Ketuk di mana saja untuk menutup</p>
+        </div>
         <div id="qrLocked" class="rounded-xl bg-error-container px-4 py-6 text-sm text-error-on {{ $qr ? 'hidden' : '' }}">
             <b>Kamu tidak terhubung ke jaringan kantor.</b><br>
             Sambungkan HP/laptop ke wifi kantor, QR akan muncul otomatis.
@@ -36,9 +43,21 @@
     const wrap = document.getElementById('qrWrap'), locked = document.getElementById('qrLocked'), info = document.getElementById('qrInfo');
     let qr = null, isLocked = {{ $qr ? 'false' : 'true' }}, lastOk = Date.now(), qrType = @json($qrType);
 
+    let currentPayload = '', big = null;
+    const qrFull = document.getElementById('qrFull'), qrBig = document.getElementById('qrBig');
+    function renderBig() {
+        const size = Math.floor(Math.min(window.innerWidth, window.innerHeight) * 0.78);
+        qrBig.innerHTML = '';
+        big = new QRCode(qrBig, { text: currentPayload, width: size, height: size, correctLevel: QRCode.CorrectLevel.M });
+    }
+    function openQrFull() { if (!currentPayload) return; qrFull.style.display = 'flex'; renderBig(); }
+    function closeQrFull() { qrFull.style.display = 'none'; }
+
     function render(payload) {
+        currentPayload = payload;
+        if (qrFull.style.display === 'flex') renderBig(); // QR di layar penuh ikut diperbarui
         if (!qr) {
-            qr = new QRCode(document.getElementById('qrcode'), { text: payload, width: 240, height: 240, correctLevel: QRCode.CorrectLevel.L });
+            qr = new QRCode(document.getElementById('qrcode'), { text: payload, width: 240, height: 240, correctLevel: QRCode.CorrectLevel.M });
         } else {
             qr.makeCode(payload);
         }
@@ -46,6 +65,8 @@
     function setLocked(v) {
         isLocked = v;
         wrap.classList.toggle('hidden', v);
+        document.getElementById('qrHint').classList.toggle('hidden', v);
+        if (v) closeQrFull();
         locked.classList.toggle('hidden', !v);
         if (v) info.textContent = '';
     }
