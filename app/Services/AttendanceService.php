@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Support\Duration;
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class AttendanceService
 {
@@ -155,11 +156,23 @@ class AttendanceService
             return null;
         }
 
-        return $photo->storeAs(
-            'attendance/'.now()->format('Y-m'),
-            $user->id.'_'.now()->format('Ymd_His').'_'.$type.'.jpg',
-            'local'
-        );
+        $path = 'attendance/'.now()->format('Y-m').'/'.$user->id.'_'.now()->format('Ymd_His').'_'.$type.'.jpg';
+
+        // Pakai getPathname(), bukan getRealPath()/storeAs(): realpath() bisa mengembalikan false di Windows
+        // kalau folder temp upload tidak bisa ditelusuri, dan itu memicu error "Path cannot be empty".
+        $tmp = $photo->getPathname();
+        $stream = $tmp !== '' ? @fopen($tmp, 'rb') : false;
+        if ($stream === false) {
+            throw new \RuntimeException('Foto wajah tidak bisa dibaca dari folder temp upload PHP ('.($tmp ?: 'kosong').'). Cek upload_tmp_dir di php.ini.');
+        }
+
+        try {
+            Storage::disk('local')->put($path, $stream);
+        } finally {
+            fclose($stream);
+        }
+
+        return $path;
     }
 
     private static function minutes(string $time): int
