@@ -32,8 +32,13 @@ class KaryawanController extends Controller
 
     public function dashboard(Request $request)
     {
-        return view('karyawan.dashboard', $this->statusData($request) + [
-            'qr' => NetworkGuard::allows($request->ip()) ? QrToken::make($request->user()) : null,
+        $data = $this->statusData($request);
+        // Tab awal: sudah absen masuk tapi belum pulang -> QR Pulang, selain itu QR Masuk
+        $type = ($data['today']?->check_in && ! $data['today']?->check_out) ? 'pulang' : 'masuk';
+
+        return view('karyawan.dashboard', $data + [
+            'qrType' => $type,
+            'qr' => NetworkGuard::allows($request->ip()) ? QrToken::make($request->user(), $type) : null,
         ]);
     }
 
@@ -52,7 +57,9 @@ class KaryawanController extends Controller
             return response()->json(['ok' => false, 'message' => 'Tidak terhubung ke jaringan kantor.'], 403);
         }
 
-        return response()->json(['ok' => true, 'payload' => QrToken::make($request->user())]);
+        $type = $request->query('type') === 'pulang' ? 'pulang' : 'masuk';
+
+        return response()->json(['ok' => true, 'payload' => QrToken::make($request->user(), $type)]);
     }
 
     public function riwayat(Request $request)

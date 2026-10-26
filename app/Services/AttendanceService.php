@@ -79,11 +79,37 @@ class AttendanceService
         return now()->gt($end) ? (int) floor(abs($end->diffInMinutes(now()))) : 0;
     }
 
+    /**
+     * Cek apakah jenis QR (masuk/pulang) cocok dengan kondisi absen hari ini.
+     * Mengembalikan pesan error, atau null kalau cocok / QR tanpa jenis.
+     */
+    public static function precheck(User $user, ?string $type): ?string
+    {
+        if ($type === null) {
+            return null;
+        }
+
+        $date = self::shiftDate($user)->toDateString();
+        $att = Attendance::where('user_id', $user->id)->whereDate('date', $date)->first();
+
+        if ($type === 'masuk' && $att?->check_in) {
+            return "{$user->name} sudah absen masuk hari ini. Gunakan QR Pulang untuk absen pulang.";
+        }
+        if ($type === 'pulang' && ! $att?->check_in) {
+            return "{$user->name} belum absen masuk hari ini. Gunakan QR Masuk dulu.";
+        }
+
+        return null;
+    }
+
     /** Proses hasil scan QR: absen masuk atau pulang. */
-    public static function scan(User $user, ?UploadedFile $photo = null): array
+    public static function scan(User $user, ?UploadedFile $photo = null, ?string $type = null): array
     {
         if (! $user->is_active) {
             return ['ok' => false, 'message' => 'Akun karyawan nonaktif.'];
+        }
+        if ($msg = self::precheck($user, $type)) {
+            return ['ok' => false, 'message' => $msg];
         }
 
         $now = now();

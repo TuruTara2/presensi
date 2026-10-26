@@ -123,8 +123,9 @@
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
     // Tahap 2: minta karyawan hadap kamera, hitung mundur 3 detik, lalu ambil foto wajah.
-    async function faceCountdown(name) {
-        document.getElementById('faceName').textContent = 'Halo, ' + name + '!';
+    async function faceCountdown(name, type) {
+        const jenis = type === 'masuk' ? ' · Absen MASUK' : (type === 'pulang' ? ' · Absen PULANG' : '');
+        document.getElementById('faceName').textContent = 'Halo, ' + name + '!' + jenis;
         faceStep.style.display = 'flex';
         for (let i = 3; i >= 1; i--) {
             document.getElementById('faceCount').textContent = i;
@@ -152,7 +153,7 @@
             if (!vr.ok) { show(false, v); return; }
 
             // Tahap 2: foto wajah
-            const photo = await faceCountdown(v.name);
+            const photo = await faceCountdown(v.name, v.type);
             if (!photo) { show(false, { message: 'Foto wajah gagal diambil. Coba scan QR lagi.' }); return; }
 
             // Tahap 3: kirim QR + foto, absen dicatat

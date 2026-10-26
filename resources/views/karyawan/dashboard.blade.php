@@ -4,9 +4,15 @@
 <div class="grid gap-6 md:grid-cols-2">
     <div class="card text-center">
         <h2>QR Code Presensi Kamu</h2>
-        <p class="mb-4 text-sm text-slate-500">Tunjukkan ke scanner presensi di kantor untuk absen masuk &amp; pulang. QR diperbarui otomatis tiap 30 detik.</p>
+        <p class="mb-4 text-sm text-slate-500">Pilih <b>QR Masuk</b> saat tiba dan <b>QR Pulang</b> saat pulang, lalu tunjukkan ke scanner presensi. QR diperbarui otomatis tiap 30 detik.</p>
 
-        <div id="qrWrap" class="flex justify-center {{ $qr ? '' : 'hidden' }}"><div id="qrcode" class="rounded-xl border p-4"></div></div>
+        <div class="mb-4 flex justify-center gap-2">
+            <button type="button" data-qr-type="masuk" class="qr-tab {{ $qrType === 'masuk' ? 'btn-primary' : 'btn-light' }}">QR Masuk</button>
+            <button type="button" data-qr-type="pulang" class="qr-tab {{ $qrType === 'pulang' ? 'btn-primary' : 'btn-light' }}">QR Pulang</button>
+        </div>
+
+        <div id="qrWrap" class="flex justify-center {{ $qr ? '' : 'hidden' }}">{{-- Latar QR selalu putih + pinggiran lebar (quiet zone), supaya tetap terbaca scanner di mode gelap --}}
+            <div id="qrcode" style="background:#fff;padding:28px;border-radius:16px;line-height:0"></div></div>
         <div id="qrLocked" class="rounded-xl bg-error-container px-4 py-6 text-sm text-error-on {{ $qr ? 'hidden' : '' }}">
             <b>Kamu tidak terhubung ke jaringan kantor.</b><br>
             Sambungkan HP/laptop ke wifi kantor, QR akan muncul otomatis.
@@ -28,7 +34,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
     const wrap = document.getElementById('qrWrap'), locked = document.getElementById('qrLocked'), info = document.getElementById('qrInfo');
-    let qr = null, isLocked = {{ $qr ? 'false' : 'true' }}, lastOk = Date.now();
+    let qr = null, isLocked = {{ $qr ? 'false' : 'true' }}, lastOk = Date.now(), qrType = @json($qrType);
 
     function render(payload) {
         if (!qr) {
@@ -48,7 +54,7 @@
 
     async function refreshQr() {
         try {
-            const r = await fetch(@json(route('karyawan.qr')), { headers: { 'Accept': 'application/json' } });
+            const r = await fetch(@json(route('karyawan.qr')) + '?type=' + qrType, { headers: { 'Accept': 'application/json' } });
             if (r.status === 403) { setLocked(true); return; }
             if (!r.ok) return;
             const d = await r.json();
@@ -58,6 +64,16 @@
             info.textContent = 'QR diperbarui ' + new Date().toLocaleTimeString('id-ID');
         } catch (e) { /* offline / sesi habis: coba lagi nanti */ }
     }
+    // Tab QR Masuk / QR Pulang
+    document.querySelectorAll('.qr-tab').forEach(btn => btn.addEventListener('click', () => {
+        qrType = btn.dataset.qrType;
+        document.querySelectorAll('.qr-tab').forEach(b => {
+            const on = b.dataset.qrType === qrType;
+            b.classList.toggle('btn-primary', on);
+            b.classList.toggle('btn-light', !on);
+        });
+        refreshQr();
+    }));
     // normal: perbarui tiap 30 detik; kalau terkunci (di luar wifi kantor) cek lebih sering
     setInterval(() => { if (isLocked || Date.now() - lastOk >= 30000) refreshQr(); }, 8000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshQr(); });
