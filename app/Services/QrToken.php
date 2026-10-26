@@ -19,6 +19,7 @@ class QrToken
 {
     public const STEP = 60;   // detik per slot
     public const BACK = 3;    // slot ke belakang yang masih diterima (~3-4 menit)
+    public const SIG_LEN = 24; // panjang tanda tangan di QR (hex). Lebih pendek = QR lebih jarang = lebih cepat terbaca
 
     /** @param string|null $type 'masuk' | 'pulang' | null (tanpa jenis) */
     public static function make(User $user, ?string $type = null): string
@@ -26,12 +27,12 @@ class QrToken
         $slot = intdiv(time(), self::STEP);
 
         if ($type === null) {
-            return "ABSEN|{$user->id}|{$slot}|".self::sign($user->id, $slot);
+            return "ABSEN|{$user->id}|{$slot}|".substr(self::sign($user->id, $slot), 0, self::SIG_LEN);
         }
 
         $t = $type === 'pulang' ? 'P' : 'M';
 
-        return "ABSEN|{$user->id}|{$slot}|{$t}|".self::sign($user->id, $slot, $t);
+        return "ABSEN|{$user->id}|{$slot}|{$t}|".substr(self::sign($user->id, $slot, $t), 0, self::SIG_LEN);
     }
 
     /** @return array{user: User, type: ?string}|null */
@@ -56,7 +57,10 @@ class QrToken
         if ((int) $slot > $now + 1 || (int) $slot < $now - self::BACK) {
             return null; // kedaluwarsa
         }
-        if (! hash_equals(self::sign($id, $slot, $t), $sig)) {
+        // Terima tanda tangan pendek (baru) maupun panjang penuh (QR lama), minimal SIG_LEN karakter
+        $full = self::sign($id, $slot, $t);
+        $len = strlen($sig);
+        if ($len < self::SIG_LEN || $len > strlen($full) || ! hash_equals(substr($full, 0, $len), $sig)) {
             return null; // tanda tangan salah
         }
 

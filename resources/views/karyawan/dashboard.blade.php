@@ -38,7 +38,7 @@
 
     function render(payload) {
         if (!qr) {
-            qr = new QRCode(document.getElementById('qrcode'), { text: payload, width: 240, height: 240, correctLevel: QRCode.CorrectLevel.M });
+            qr = new QRCode(document.getElementById('qrcode'), { text: payload, width: 240, height: 240, correctLevel: QRCode.CorrectLevel.L });
         } else {
             qr.makeCode(payload);
         }

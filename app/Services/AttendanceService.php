@@ -68,6 +68,43 @@ class AttendanceService
         return $dt;
     }
 
+    /**
+     * Hitung status, telat, dan lembur dari jam masuk/pulang yang diinput manual oleh admin,
+     * memakai aturan shift & toleransi yang sama dengan scan QR.
+     *
+     * @return array{status: string, check_in: string, check_out: ?string, late_minutes: int, overtime_minutes: int}
+     */
+    public static function manualFields(User $user, Carbon $date, string $in, ?string $out): array
+    {
+        $shift = self::shiftFor($user);
+        [$start, $end] = self::window($shift, $date);
+        $limit = $start->copy()->addMinutes($shift->toleransi_menit);
+        $d = $date->toDateString();
+
+        $inAt = Carbon::parse("{$d} {$in}");
+        if ($inAt->lt($start->copy()->subHours(12))) {
+            $inAt->addDay(); // shift malam: masuk setelah tengah malam
+        }
+
+        $late = $inAt->gt($limit);
+        $overtime = 0;
+        if ($out) {
+            $outAt = Carbon::parse("{$d} {$out}");
+            while ($outAt->lt($inAt)) {
+                $outAt->addDay();
+            }
+            $overtime = $outAt->gt($end) ? (int) floor(abs($end->diffInMinutes($outAt))) : 0;
+        }
+
+        return [
+            'status' => $late ? 'terlambat' : 'hadir',
+            'check_in' => $inAt->format('H:i:s'),
+            'check_out' => $out ? Carbon::parse($out)->format('H:i:s') : null,
+            'late_minutes' => $late ? (int) floor(abs($start->diffInMinutes($inAt))) : 0,
+            'overtime_minutes' => $overtime,
+        ];
+    }
+
     /** Lembur sementara (menit) untuk karyawan yang sudah masuk tapi belum pulang. */
     public static function liveOvertime(User $user, ?Attendance $att): int
     {

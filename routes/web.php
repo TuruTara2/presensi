@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/perangkat/permintaan/{permintaan}', [Admin\DeviceController::class, 'decide'])->name('perangkat.decide');
         Route::delete('/perangkat/{karyawan}', [Admin\DeviceController::class, 'reset'])->name('perangkat.reset');
 
+        Route::resource('presensi', Admin\AttendanceController::class)->except('show');
+
         Route::get('/laporan', [Admin\ReportController::class, 'index'])->name('laporan');
         Route::get('/laporan/export', [Admin\ReportController::class, 'export'])->name('laporan.export');
         Route::get('/laporan/foto/{attendance}/{type}', [Admin\ReportController::class, 'foto'])->whereIn('type', ['masuk', 'pulang'])->name('laporan.foto');

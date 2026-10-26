@@ -121,13 +121,14 @@
 
     const faceStep = document.getElementById('faceStep');
     const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const COUNTDOWN_SECONDS = 2; // hitung mundur sebelum foto wajah (ubah kalau mau lebih lama/singkat)
 
     // Tahap 2: minta karyawan hadap kamera, hitung mundur 3 detik, lalu ambil foto wajah.
     async function faceCountdown(name, type) {
         const jenis = type === 'masuk' ? ' · Absen MASUK' : (type === 'pulang' ? ' · Absen PULANG' : '');
         document.getElementById('faceName').textContent = 'Halo, ' + name + '!' + jenis;
         faceStep.style.display = 'flex';
-        for (let i = 3; i >= 1; i--) {
+        for (let i = COUNTDOWN_SECONDS; i >= 1; i--) {
             document.getElementById('faceCount').textContent = i;
             await sleep(1000);
         }
@@ -168,7 +169,7 @@
         } finally {
             faceStep.style.display = 'none'; faceStep.style.background = 'rgba(0,0,0,.35)';
             lastAt = Date.now(); // jangan langsung proses ulang QR yang sama
-            setTimeout(() => busy = false, 2500);
+            setTimeout(() => busy = false, 1500);
         }
     }
 
@@ -216,8 +217,24 @@
     }
     loadRecent();
 
-    const scanner = new Html5Qrcode('reader');
-    scanner.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 240, height: 240 } },
+    // Scanner dibuat cepat: hanya baca QR, resolusi HD, fokus otomatis, area baca besar, dan fps tinggi.
+    const scanner = new Html5Qrcode('reader', {
+        formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+        experimentalFeatures: { useBarCodeDetector: true }, // pakai detektor bawaan browser kalau tersedia (jauh lebih cepat)
+        verbose: false,
+    });
+    scanner.start(
+        { facingMode: 'environment' },
+        {
+            fps: 25,
+            qrbox: (w, h) => { const s = Math.floor(Math.min(w, h) * 0.85); return { width: s, height: s }; },
+            disableFlip: true, // tidak perlu decode ulang versi mirror, setengah beban CPU
+            videoConstraints: {
+                facingMode: 'environment',
+                width: { ideal: 1280 }, height: { ideal: 720 },
+                advanced: [{ focusMode: 'continuous' }],
+            },
+        },
         text => send(text), () => {})
         .catch(err => {
             document.getElementById('reader').innerHTML =

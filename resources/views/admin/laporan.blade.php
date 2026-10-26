@@ -57,7 +57,7 @@
                             <td class="td">{{ $r->user->division->name ?? '-' }}</td>
                             <td class="td">{{ $r->check_in ? substr($r->check_in,0,5) : '-' }}</td>
                             <td class="td">{{ $r->check_out ? substr($r->check_out,0,5) : '-' }}</td>
-                            <td class="td">@include('partials.badge', ['s' => $r->status])</td>
+                            <td class="td">@include('partials.badge', ['s' => $r->status])@if ($r->is_manual)<span class="ml-1 text-xs text-slate-400" title="{{ $r->note }}">manual</span>@endif</td>
                             <td class="td">{{ $r->late_minutes ? \App\Support\Duration::format($r->late_minutes) : '-' }}</td>
                             <td class="td">{{ $r->overtime_minutes ? \App\Support\Duration::format($r->overtime_minutes) : '-' }}</td>
                             <td class="td">
