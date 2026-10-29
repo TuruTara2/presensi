@@ -10,7 +10,7 @@
             <button type="button" data-qr-type="masuk" class="qr-tab {{ $qrType === 'masuk' ? 'btn-primary' : 'btn-light' }}">QR Masuk</button>
             <button type="button" data-qr-type="pulang" class="qr-tab {{ $qrType === 'pulang' ? 'btn-primary' : 'btn-light' }}">QR Pulang</button>
         </div>
-
+//supaya
         <div id="qrWrap" class="flex justify-center {{ $qr ? '' : 'hidden' }}">{{-- Latar QR selalu putih + pinggiran lebar (quiet zone), supaya tetap terbaca scanner di mode gelap --}}
             <div id="qrcode" onclick="openQrFull()" title="Ketuk untuk layar penuh" style="background:#fff;padding:clamp(20px,8vw,40px);border-radius:16px;line-height:0;cursor:zoom-in;max-width:100%"></div></div>
         <p id="qrHint" class="mt-2 text-xs text-slate-400 {{ $qr ? '' : 'hidden' }}">Susah dipindai? Ketuk QR untuk tampilan layar penuh.</p>
