@@ -44,7 +44,11 @@
     /* paksa preview kamera TIDAK mirror */
     #reader video { transform: none !important; -webkit-transform: none !important; }
 </style>
-@endpush
+@endpush    
+//yay
+//supaya
+//serr
+//uhuyy
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
 <script>

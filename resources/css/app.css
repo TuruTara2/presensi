@@ -1,11 +1,58 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@layer base {
+        body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; color: rgb(var(--c-body)); background: rgb(var(--c-page)); }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; color: rgb(var(--c-ink)); }
+        ::placeholder { color: rgb(var(--c-slate-400)); }
+    }
+    @layer components {
+        /* Tipografi */
+        .h3 { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 28px; line-height: 1.4; color: rgb(var(--c-ink)); }
+        .h4, .card h2 { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.4; color: rgb(var(--c-ink)); }
+        .label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; line-height: 1; letter-spacing: .02em; color: rgb(var(--c-ink)); }
+        .caption { font-size: 14px; }
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-}
+        /* Tombol: 40px (medium), radius 12px */
+        .btn, .btn-primary, .btn-light, .btn-secondary, .btn-danger { display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0 24px; border-radius: 12px;
+               font-size: 14px; font-weight: 600; letter-spacing: .02em; transition: background-color .15s, color .15s; white-space: nowrap; cursor: pointer; }
+        .btn-lg { height: 48px; }
+        .btn-primary { background: #DC143C; color: #fff; border: 1.5px solid #DC143C; }
+        .btn-primary:hover { background: #C61136; border-color: #C61136; }
+        .btn-light, .btn-secondary { background: transparent; color: rgb(var(--c-primary)); border: 1.5px solid rgb(var(--c-primary)); }
+        .btn-light:hover, .btn-secondary:hover { background: rgb(var(--c-primary) / .08); }
+        .btn-danger { background: rgb(var(--c-error-container)); color: rgb(var(--c-error-on)); border: 1.5px solid rgb(var(--c-error-container)); }
+        .btn-danger:hover { filter: brightness(.95); }
+        .btn:focus-visible, .nav-link:focus-visible, .icon-btn:focus-visible, .pw-toggle:focus-visible { outline: 2px solid rgb(var(--c-primary) / .5); outline-offset: 2px; }
+
+        /* Tombol ikon (ganti tema) & ikon intip password */
+        .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px;
+                    border: 1.5px solid rgb(var(--c-line)); color: rgb(var(--c-body)); background: transparent; cursor: pointer; transition: background-color .15s; }
+        .icon-btn:hover { background: rgb(var(--c-surface-low)); }
+        .pw-toggle { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center;
+                     width: 40px; height: 40px; border-radius: 8px; color: rgb(var(--c-slate-500)); cursor: pointer; }
+        .pw-toggle:hover { color: rgb(var(--c-ink)); }
+
+        /* Input: radius 12px, fokus crimson + glow 2px */
+        .input { width: 100%; min-height: 48px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgb(var(--c-input-line)); background: rgb(var(--c-card));
+                 font-size: 16px; color: rgb(var(--c-ink)); transition: border-color .15s, box-shadow .15s; }
+        textarea.input { min-height: 96px; }
+        .input:focus { outline: none; border-color: rgb(var(--c-primary)); box-shadow: 0 0 0 2px rgb(var(--c-primary) / .25); }
+        input[type=checkbox] { accent-color: #DC143C; border-radius: 4px; }
+
+        /* Kartu: elevasi level 1 -> level 2 saat hover */
+        .card { border-radius: 12px; background: rgb(var(--c-card)); padding: 24px; border: 1px solid rgb(var(--c-line));
+                box-shadow: var(--shadow-1); transition: box-shadow .2s; }
+        .card:hover { box-shadow: var(--shadow-2); }
+
+        /* Tabel */
+        .th { padding: 16px; text-align: left; font-size: 14px; font-weight: 600; letter-spacing: .02em; color: rgb(var(--c-ink)); }
+        .td { padding: 16px; font-size: 14px; color: rgb(var(--c-body)); }
+        tbody tr:hover { background: rgb(var(--c-surface)); }
+
+        /* Navigasi: link aktif SemiBold + garis crimson 2px di bawah */
+        .nav-link { display: inline-block; padding: 16px 0 14px; border-bottom: 2px solid transparent; white-space: nowrap; color: rgb(var(--c-body)); }
+        .nav-link:hover { color: rgb(var(--c-ink)); }
+        .nav-link-active { font-weight: 600; color: rgb(var(--c-ink)); border-bottom-color: #DC143C; }
+    }
