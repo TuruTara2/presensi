@@ -161,7 +161,9 @@ class AttendanceService
             return ['ok' => false, 'message' => "{$user->name} sedang izin/sakit/cuti hari ini."];
         }
 
-        $att = Attendance::firstOrNew(['user_id' => $user->id, 'date' => $dateStr]);
+        // whereDate (bukan firstOrNew biasa) supaya tetap ketemu di SQLite yang menyimpan tanggal beserta jam
+        $att = Attendance::where('user_id', $user->id)->whereDate('date', $dateStr)->first()
+            ?? new Attendance(['user_id' => $user->id, 'date' => $dateStr]);
 
         // ---- Absen masuk
         if (! $att->check_in) {

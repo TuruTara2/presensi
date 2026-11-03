@@ -35,10 +35,9 @@ class LeaveApprovalController extends Controller
                 if ($day->isWeekend()) {
                     continue;
                 }
-                Attendance::updateOrCreate(
-                    ['user_id' => $izin->user_id, 'date' => $day->toDateString()],
-                    ['status' => $izin->type, 'check_in' => null, 'check_out' => null, 'late_minutes' => 0, 'overtime_minutes' => 0]
-                );
+                $att = Attendance::where('user_id', $izin->user_id)->whereDate('date', $day->toDateString())->first()
+                    ?? new Attendance(['user_id' => $izin->user_id, 'date' => $day->toDateString()]);
+                $att->fill(['status' => $izin->type, 'check_in' => null, 'check_out' => null, 'late_minutes' => 0, 'overtime_minutes' => 0])->save();
             }
         }
 

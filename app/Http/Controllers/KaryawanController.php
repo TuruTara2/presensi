@@ -64,7 +64,11 @@ class KaryawanController extends Controller
 
     public function riwayat(Request $request)
     {
-        $month = $request->input('bulan', now()->format('Y-m'));
+        // Format harus YYYY-MM; kalau kosong/ngawur pakai bulan ini (sebelumnya bisa error 500)
+        $month = (string) $request->input('bulan');
+        if (! preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $month)) {
+            $month = now()->format('Y-m');
+        }
         [$y, $m] = explode('-', $month);
 
         $rows = Attendance::where('user_id', $request->user()->id)

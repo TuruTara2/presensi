@@ -33,6 +33,7 @@ class PasswordResetController extends Controller
         // Batasi tebak-tebakan NIP: maks 5 percobaan gagal per email+IP selama 15 menit
         $key = 'reset-password:'.Str::lower($data['email']).'|'.$request->ip();
         $back = fn (string $msg) => back()->withInput($request->only('email', 'nip'))->withErrors(['email' => $msg]);
+        $gagal = 'Verifikasi gagal. Pastikan email dan NIP benar, dan lakukan dari perangkat yang terdaftar di akunmu. Kalau masih gagal (misalnya ganti perangkat atau akun belum pernah dipakai login), hubungi admin.';
 
         if (RateLimiter::tooManyAttempts($key, 5)) {
             $menit = (int) ceil(RateLimiter::availableIn($key) / 60);
@@ -51,17 +52,18 @@ class PasswordResetController extends Controller
         if (! $user) {
             RateLimiter::hit($key, 900);
 
-            return $back('Email dan NIP tidak cocok, atau akun tidak bisa direset di sini. Hubungi admin.');
+            return $back($gagal);
         }
 
-        // Harus dari perangkat yang terdaftar di akun (aturan yang sama dengan login karyawan)
-        if ($user->device_hash !== null) {
-            $token = $request->cookie('device_token');
-            if (! $token || ! hash_equals($user->device_hash, hash('sha256', $token))) {
-                RateLimiter::hit($key, 900);
+        // Harus dari perangkat yang terdaftar di akun (aturan yang sama dengan login karyawan).
+        // Akun yang belum pernah login (belum ada perangkat terdaftar) TIDAK bisa direset di sini,
+        // kalau tidak, siapa pun yang tahu email + NIP bisa mengambil alih akun sebelum pemiliknya login.
+        // Pesannya sengaja sama dengan "email/NIP salah" supaya orang luar tidak bisa menebak NIP yang benar.
+        $token = $request->cookie('device_token');
+        if ($user->device_hash === null || ! $token || ! hash_equals($user->device_hash, hash('sha256', $token))) {
+            RateLimiter::hit($key, 900);
 
-                return $back('Reset password hanya bisa dilakukan dari perangkat yang terdaftar di akunmu. Kalau kamu ganti perangkat, hubungi admin.');
-            }
+            return $back($gagal);
         }
 
         $user->forceFill([
