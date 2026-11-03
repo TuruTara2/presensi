@@ -16,6 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'device' => \App\Http\Middleware\EnsureBoundDevice::class,
         ]);
 
+        // Mencegah browser menampilkan halaman login/dashboard lama dari cache saat tombol Back ditekan.
+        $middleware->appendToGroup(
+            'web',
+            \App\Http\Middleware\NoCacheHeaders::class
+        );
+
         // Jika aplikasi berada di belakang proxy/Cloudflare/load balancer, isi TRUSTED_PROXIES di .env
         // (contoh: TRUSTED_PROXIES=* atau daftar IP dipisah koma) agar IP asli pengunjung terbaca.
         if ($proxies = env('TRUSTED_PROXIES')) {

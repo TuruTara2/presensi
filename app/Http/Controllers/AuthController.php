@@ -14,6 +14,11 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
+        // Jika pengguna masih memiliki sesi aktif, jangan tampilkan halaman login.
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+
         return view('auth.login');
     }
 

@@ -73,5 +73,33 @@
     @yield('content')
 </main>
 @stack('scripts')
+
+{{-- Cegah tombol Back membawa pengguna yang sudah login kembali ke halaman sebelumnya (terutama login). --}}
+<script>
+    (function () {
+        // Buat satu entri riwayat pengaman pada setiap halaman yang membutuhkan autentikasi.
+        // Saat tombol Back ditekan, browser tetap berada di halaman aktif.
+        function keepAuthenticatedPage() {
+            try {
+                history.pushState({ authenticatedPage: true }, '', window.location.href);
+            } catch (e) {
+                // Abaikan jika browser membatasi History API.
+            }
+        }
+
+        keepAuthenticatedPage();
+
+        window.addEventListener('popstate', function () {
+            keepAuthenticatedPage();
+        });
+
+        // Beberapa browser memulihkan halaman dari back-forward cache.
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                keepAuthenticatedPage();
+            }
+        });
+    })();
+</script>
 </body>
 </html>
