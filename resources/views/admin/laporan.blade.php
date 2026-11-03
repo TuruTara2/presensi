@@ -71,10 +71,14 @@
                                     @endif
                                     @foreach (['masuk' => $r->check_in_photo, 'pulang' => $r->check_out_photo] as $tipe => $foto)
                                         @if ($foto)
-                                            <a href="{{ route('admin.laporan.foto', [$r, $tipe]) }}" target="_blank" title="Foto {{ $tipe }}" class="block text-center text-xs text-slate-500">
-                                                <img src="{{ route('admin.laporan.foto', [$r, $tipe]) }}" loading="lazy" alt="Foto {{ $tipe }} {{ $r->user->name }}" class="h-12 w-12 rounded-lg object-cover ring-1 ring-slate-200">
+                                            <button type="button"
+                                                data-photo-preview="{{ route('admin.laporan.foto', [$r, $tipe]) }}"
+                                                data-photo-alt="Foto {{ $tipe }} {{ $r->user->name }}"
+                                                title="Lihat foto {{ $tipe }}"
+                                                class="block cursor-zoom-in text-center text-xs text-slate-500">
+                                                <img src="{{ route('admin.laporan.foto', [$r, $tipe]) }}" loading="lazy" alt="Foto {{ $tipe }} {{ $r->user->name }}" class="h-12 w-12 rounded-lg object-cover ring-1 ring-slate-200 transition hover:scale-105 hover:ring-primary">
                                                 {{ ucfirst($tipe) }}
-                                            </a>
+                                            </button>
                                         @endif
                                     @endforeach
                                     @if (! $r->check_in_photo && ! $r->check_out_photo)<span class="text-slate-400">-</span>@endif
@@ -88,4 +92,49 @@
         @endif
     </div>
 @endforeach
+
+{{-- Preview foto tanpa meninggalkan halaman laporan --}}
+<div id="photoPreviewModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true" aria-label="Pratinjau foto" aria-hidden="true">
+    <button type="button" id="photoPreviewClose" class="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-2xl text-white transition hover:bg-white/30" aria-label="Tutup">&times;</button>
+    <img id="photoPreviewImage" src="" alt="Pratinjau foto absensi" class="max-h-[88vh] max-w-full rounded-xl object-contain shadow-2xl">
+</div>
 @endsection
+
+@push('scripts')
+<script>
+    (() => {
+        const modal = document.getElementById('photoPreviewModal');
+        const preview = document.getElementById('photoPreviewImage');
+        const closeButton = document.getElementById('photoPreviewClose');
+        if (!modal || !preview || !closeButton) return;
+
+        function closePreview() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            modal.setAttribute('aria-hidden', 'true');
+            preview.src = '';
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        document.querySelectorAll('[data-photo-preview]').forEach(button => {
+            button.addEventListener('click', () => {
+                preview.src = button.dataset.photoPreview;
+                preview.alt = button.dataset.photoAlt || 'Foto absensi';
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('overflow-hidden');
+                closeButton.focus();
+            });
+        });
+
+        closeButton.addEventListener('click', closePreview);
+        modal.addEventListener('click', event => {
+            if (event.target === modal) closePreview();
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) closePreview();
+        });
+    })();
+</script>
+@endpush
