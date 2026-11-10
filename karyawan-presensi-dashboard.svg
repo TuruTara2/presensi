@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" viewBox="0 0 1440 1024">
+  <title>Presensi Hari Ini — Portal Karyawan Presensi QR</title>
+  <desc>Prototype vektor halaman presensi karyawan sesuai layout dan design system project Presensi QR. QR adalah ilustrasi; impor SVG ini ke Figma untuk mengedit.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1024" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="84" fill="#ffffff"/>
+    <g id="brand">
+      <text x="80" y="40" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="40" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="63" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Portal Karyawan</text>
+    </g>
+    <g id="account-actions">
+      <circle cx="1124" cy="42" r="20" fill="#fce8ec"/>
+      <text x="1124" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">BS</text>
+      <text x="1155" y="47" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Budi Santoso</text>
+      <g id="theme-toggle">
+        <rect x="1212" y="22" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1234.3 32.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="logout-button">
+        <rect x="1268" y="22" width="92" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1314" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Keluar</text>
+      </g>
+    </g>
+  </g>
+  <path d="M0 83.5H1440" stroke="#eaeaea"/>
+
+  <g id="employee-navigation" font-family="Inter, sans-serif" font-size="14">
+    <rect x="80" y="84" width="91" height="53" fill="#ffffff"/>
+    <text x="80" y="116" fill="#121212" font-weight="600">Presensi</text>
+    <path d="M80 135.5H157" stroke="#dc143c" stroke-width="2"/>
+    <text x="195" y="116" fill="#4a4a4a">Riwayat</text>
+    <text x="284" y="116" fill="#4a4a4a">Izin / Sakit / Cuti</text>
+    <text x="431" y="116" fill="#4a4a4a">Profil</text>
+  </g>
+  <path d="M0 137.5H1440" stroke="#eaeaea"/>
+
+  <g id="page-content">
+    <text x="80" y="192" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Presensi Hari Ini</text>
+
+    <g id="qr-attendance-card">
+      <rect x="80" y="216" width="624" height="650" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="392" y="260" fill="#121212" text-anchor="middle" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR Code Presensi Kamu</text>
+      <text x="392" y="290" fill="#6b6b6b" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">Pilih QR Masuk saat tiba dan QR Pulang saat pulang,</text>
+      <text x="392" y="312" fill="#6b6b6b" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">lalu tunjukkan ke scanner presensi.</text>
+      <text x="392" y="334" fill="#6b6b6b" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">QR diperbarui otomatis tiap 30 detik.</text>
+
+      <g id="qr-tabs" font-family="Inter, sans-serif" font-size="14" font-weight="600">
+        <rect x="274" y="350" width="112" height="40" rx="12" fill="#dc143c"/>
+        <text x="330" y="375" fill="#ffffff" text-anchor="middle">QR Masuk</text>
+        <rect x="394" y="350" width="112" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="450" y="375" fill="#dc143c" text-anchor="middle">QR Pulang</text>
+      </g>
+
+      <g id="qr-code-illustration">
+        <rect x="232" y="406" width="320" height="320" rx="16" fill="#ffffff"/>
+        <g fill="#121212">
+          <path d="M268 442h84v84h-84zm12 12v60h60v-60z" fill-rule="evenodd"/>
+          <path d="M292 466h36v36h-36z"/>
+          <path d="M432 442h84v84h-84zm12 12v60h60v-60z" fill-rule="evenodd"/>
+          <path d="M456 466h36v36h-36z"/>
+          <path d="M268 582h84v84h-84zm12 12v60h60v-60z" fill-rule="evenodd"/>
+          <path d="M292 606h36v36h-36z"/>
+          <path d="M364 442h12v12h-12zm24 0h12v12h-12zm12 12h12v12h-12zm-36 12h12v12h-12zm24 0h12v12h-12zm24 0h12v12h-12zm-48 12h12v12h-12zm12 12h12v12h-12zm24 0h12v12h-12zm24 0h12v12h-12zm-60 12h12v12h-12zm24 0h12v12h-12zm36 0h12v12h-12zm-48 12h12v12h-12zm24 0h12v12h-12zm36 0h12v12h-12z"/>
+          <path d="M364 538h12v12h-12zm12 12h12v12h-12zm24-12h12v12h-12zm24 0h12v12h-12zm36 0h12v12h-12zm24 0h12v12h-12zm-108 24h12v12h-12zm24 0h12v12h-12zm36-12h12v12h-12zm24 12h12v12h-12zm24 0h12v12h-12zm-84 12h12v12h-12zm24 0h12v12h-12zm48 0h12v12h-12zm36 0h12v12h-12zm-108 12h12v12h-12zm36 0h12v12h-12zm24 12h12v12h-12zm36-12h12v12h-12zm-84 24h12v12h-12zm24 0h12v12h-12zm48 0h12v12h-12zm36 0h12v12h-12z"/>
+          <path d="M364 606h12v12h-12zm24-12h12v12h-12zm12 24h12v12h-12zm24-12h12v12h-12zm24 0h12v12h-12zm36 0h12v12h-12zm-108 24h12v12h-12zm24 0h12v12h-12zm36-12h12v12h-12zm24 12h12v12h-12zm36 0h12v12h-12zm-96 12h12v12h-12zm24 0h12v12h-12zm48 0h12v12h-12zm24 0h12v12h-12z"/>
+          <path d="M268 538h12v12h-12zm24 0h12v12h-12zm36 0h12v12h-12zm-60 24h12v12h-12zm24 0h12v12h-12zm36 0h12v12h-12zm-60 12h12v12h-12zm24 12h12v12h-12zm36 0h12v12h-12zm-60 24h12v12h-12zm36 0h12v12h-12zm24 12h12v12h-12zm-48 12h12v12h-12zm24 12h12v12h-12z"/>
+        </g>
+        <rect x="232" y="406" width="320" height="320" rx="16" fill="none" stroke="#eaeaea"/>
+      </g>
+
+      <text x="392" y="750" fill="#9a9a9a" text-anchor="middle" font-family="Inter, sans-serif" font-size="12">Susah dipindai? Ketuk QR untuk tampilan layar penuh.</text>
+      <text x="392" y="793" fill="#9a9a9a" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">QR diperbarui 08:30:00</text>
+      <text x="392" y="824" fill="#9a9a9a" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">Selasa, 10 November 2026 · Shift Reguler (08:00 - 17:00)</text>
+    </g>
+
+    <g id="attendance-status-card">
+      <rect x="728" y="216" width="632" height="290" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="752" y="258" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Status Hari Ini</text>
+      <text x="752" y="302" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Kamu belum absen hari ini. Batas masuk:</text>
+      <text x="752" y="325" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">08:00 + toleransi 15 menit.</text>
+      <g id="attendance-times">
+        <rect x="752" y="350" width="280" height="96" rx="12" fill="#fbf9f8"/>
+        <text x="772" y="379" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Jam Masuk</text>
+        <text x="772" y="418" fill="#121212" font-family="Poppins, sans-serif" font-size="24" font-weight="600">-</text>
+        <rect x="1048" y="350" width="288" height="96" rx="12" fill="#fbf9f8"/>
+        <text x="1068" y="379" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Jam Keluar</text>
+        <text x="1068" y="418" fill="#121212" font-family="Poppins, sans-serif" font-size="24" font-weight="600">-</text>
+      </g>
+    </g>
+
+    <g id="leave-request-link">
+      <rect x="728" y="526" width="632" height="48" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+      <text x="1044" y="556" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Ajukan Izin / Sakit / Cuti</text>
+      <path d="M1318 545h18m-6-6 6 6-6 6" fill="none" stroke="#dc143c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>
