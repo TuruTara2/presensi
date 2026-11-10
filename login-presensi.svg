@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" viewBox="0 0 1440 1024">
+  <title>Masuk — Presensi QR</title>
+  <desc>Prototype vektor halaman login Presensi QR, mengikuti layout dan design system aplikasi.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1024" fill="#fbf9f8"/>
+
+  <g id="theme-toggle">
+    <rect x="1384" y="16" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+    <path d="M1406.3 26.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g id="login-card">
+    <rect x="496" y="273" width="448" height="478" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+
+    <g id="brand-intro">
+      <text x="521" y="324" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Presensi</text>
+      <text x="647" y="324" fill="#dc143c" font-family="Poppins, sans-serif" font-size="28" font-weight="600">QR</text>
+      <text x="521" y="354" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Masuk dengan akun karyawan atau admin.</text>
+    </g>
+
+    <g id="email-field">
+      <text x="521" y="398" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Email</text>
+      <rect x="521" y="410" width="398" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+    </g>
+
+    <g id="password-field">
+      <text x="521" y="492" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Password</text>
+      <rect x="521" y="504" width="398" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+      <g id="password-visibility-icon" fill="none" stroke="#6b6b6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M887 528s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
+        <circle cx="897" cy="528" r="3"/>
+      </g>
+    </g>
+
+    <g id="login-options">
+      <rect x="521" y="578" width="16" height="16" rx="3" fill="#ffffff" stroke="#9a9a9a"/>
+      <text x="545" y="591" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Ingat saya</text>
+      <text x="919" y="591" fill="#dc143c" text-anchor="end" font-family="Inter, sans-serif" font-size="14" font-weight="600">Lupa password?</text>
+    </g>
+
+    <g id="login-button">
+      <rect x="521" y="618" width="398" height="48" rx="12" fill="#dc143c"/>
+      <text x="720" y="648" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Masuk</text>
+    </g>
+
+    <text id="back-to-scan" x="720" y="708" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Kembali ke halaman scan QR</text>
+  </g>
+</svg>

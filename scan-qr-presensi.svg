@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="1024" viewBox="0 0 1440 1024">
+  <title>Scan QR Presensi — Presensi QR</title>
+  <desc>Prototype vektor halaman scan QR Presensi, mengikuti layout desktop dan design system aplikasi.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+    <linearGradient id="camera-preview" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#303234"/>
+      <stop offset="1" stop-color="#171819"/>
+    </linearGradient>
+    <clipPath id="preview-clip">
+      <rect x="104" y="338" width="580" height="326" rx="12"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1440" height="1024" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="88" fill="#ffffff"/>
+    <path d="M0 87.5H1440" stroke="#eaeaea"/>
+    <g id="brand">
+      <text x="80" y="43" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="43" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="66" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Absensi karyawan</text>
+    </g>
+    <g id="header-actions">
+      <g id="theme-toggle">
+        <rect x="1220" y="24" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1242.3 34.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="login-button">
+        <rect x="1276" y="24" width="84" height="40" rx="12" fill="#dc143c"/>
+        <text x="1318" y="49" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Masuk</text>
+      </g>
+    </g>
+  </g>
+
+  <g id="page-intro">
+    <text x="80" y="145" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Scan QR Presensi</text>
+    <text x="80" y="177" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">
+      <tspan x="80" dy="0">Tunjukkan QR Code dari akun kamu ke kamera. Scan pertama untuk absen masuk, scan kedua untuk absen pulang.</tspan>
+      <tspan x="80" dy="22">Setelah QR terbaca, kamu akan difoto wajah untuk verifikasi.</tspan>
+    </text>
+  </g>
+
+  <g id="camera-card">
+    <rect x="80" y="225" width="628" height="648" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+    <text x="104" y="269" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Scanner Kamera</text>
+
+    <g id="clock">
+      <text x="684" y="263" fill="#dc143c" text-anchor="end" font-family="Inter, monospace" font-size="18" font-weight="600">08:25:47</text>
+      <text x="684" y="285" fill="#6b6b6b" text-anchor="end" font-family="Inter, sans-serif" font-size="14">Selasa, 10 November 2026</text>
+    </g>
+
+    <g id="camera-preview" clip-path="url(#preview-clip)">
+      <rect x="104" y="338" width="580" height="326" fill="url(#camera-preview)"/>
+      <path d="M104 556 251 421l93 89 92-72 248 226H104Z" fill="#252729"/>
+      <path d="m104 581 156-94 114 72 114-70 196 130H104Z" fill="#202224"/>
+      <circle cx="548" cy="404" r="31" fill="#626568" opacity=".22"/>
+      <rect x="104" y="338" width="580" height="326" fill="#000000" opacity=".12"/>
+      <g id="qr-scan-frame" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M284 386h-30v30M504 386h30v30M284 616h-30v-30M504 616h30v-30"/>
+      </g>
+      <circle cx="394" cy="501" r="27" fill="#ffffff" opacity=".1"/>
+      <path d="M385 501h18M394 492v18" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+      <rect x="104" y="338" width="580" height="326" rx="12" fill="none" stroke="#eaeaea"/>
+    </g>
+
+    <text x="104" y="693" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Izinkan akses kamera. Kamera hanya jalan di <tspan fill="#4a4a4a" font-weight="600">HTTPS</tspan> atau <tspan fill="#4a4a4a" font-weight="600">localhost</tspan>.</text>
+
+    <text x="104" y="741" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Atau input manual (scanner USB / paste payload)</text>
+    <g id="manual-input">
+      <rect x="104" y="757" width="468" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+      <text x="120" y="787" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="16">ABSEN|1|29735281|...</text>
+    </g>
+    <g id="submit-button">
+      <rect x="580" y="757" width="104" height="48" rx="12" fill="#dc143c"/>
+      <text x="632" y="787" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Kirim</text>
+    </g>
+  </g>
+
+  <g id="session-card">
+    <rect x="732" y="225" width="628" height="198" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+    <text x="756" y="269" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Scan di sesi ini</text>
+    <path d="M756 293H1336" stroke="#eaeaea"/>
+    <text x="1046" y="352" fill="#9a9a9a" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">Belum ada scan.</text>
+  </g>
+</svg>

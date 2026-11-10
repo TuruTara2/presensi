@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" viewBox="0 0 1440 1024">
+  <title>Presensi Manual — Panel Admin Presensi QR</title>
+  <desc>Prototype vektor halaman Presensi Manual admin, mengikuti struktur dan komponen project Presensi QR. Data contoh untuk tampilan; impor SVG ini ke Figma untuk mengedit.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1024" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="84" fill="#ffffff"/>
+    <g id="brand">
+      <text x="80" y="40" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="40" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="63" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Panel Admin</text>
+    </g>
+    <g id="account-actions">
+      <circle cx="1124" cy="42" r="20" fill="#f5f3f3"/>
+      <text x="1124" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">AD</text>
+      <text x="1155" y="47" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Admin</text>
+      <g id="theme-toggle">
+        <rect x="1212" y="22" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1234.3 32.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="logout-button">
+        <rect x="1268" y="22" width="92" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1314" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Keluar</text>
+      </g>
+    </g>
+  </g>
+  <path d="M0 83.5H1440" stroke="#eaeaea"/>
+
+  <g id="admin-navigation" font-family="Inter, sans-serif" font-size="14">
+    <text x="80" y="116" fill="#4a4a4a">Dashboard</text>
+    <text x="192" y="116" fill="#4a4a4a">Karyawan</text>
+    <text x="283" y="116" fill="#4a4a4a">Divisi</text>
+    <text x="347" y="116" fill="#4a4a4a">Jam Kerja</text>
+    <text x="444" y="116" fill="#4a4a4a">Persetujuan</text>
+    <rect x="561" y="84" width="133" height="53" fill="#ffffff"/>
+    <text x="568" y="116" fill="#121212" font-weight="600">Presensi Manual</text>
+    <path d="M568 135.5H687" stroke="#dc143c" stroke-width="2"/>
+    <text x="713" y="116" fill="#4a4a4a">Jaringan</text>
+    <text x="802" y="116" fill="#4a4a4a">Perangkat</text>
+    <text x="904" y="116" fill="#4a4a4a">Laporan</text>
+  </g>
+  <path d="M0 137.5H1440" stroke="#eaeaea"/>
+
+  <g id="page-content">
+    <text x="80" y="192" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Presensi Manual</text>
+    <text x="80" y="224" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">
+      <tspan>Tandai presensi karyawan yang </tspan><tspan fill="#4a4a4a" font-weight="600">lupa absen</tspan>
+      <tspan>, atau catat </tspan><tspan fill="#4a4a4a" font-weight="600">izin / sakit / cuti</tspan><tspan>.</tspan>
+    </text>
+    <text x="80" y="246" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Data yang diinput atau diubah admin akan diberi tanda manual.</text>
+
+    <g id="attendance-filters">
+      <g id="month-filter">
+        <text x="80" y="285" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Bulan</text>
+        <rect x="80" y="297" width="208" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="96" y="327" fill="#121212" font-family="Inter, sans-serif" font-size="14">November 2026</text>
+        <rect x="254" y="310" width="16" height="15" rx="2" fill="none" stroke="#6b6b6b" stroke-width="1.5"/>
+        <path d="M258 307v6m8-6v6m-12 3h16" stroke="#6b6b6b" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <g id="employee-search">
+        <text x="304" y="285" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Cari karyawan</text>
+        <rect x="304" y="297" width="264" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="320" y="327" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">Nama / NIP</text>
+      </g>
+      <g id="status-filter">
+        <text x="584" y="285" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Status</text>
+        <rect x="584" y="297" width="180" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="600" y="327" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Semua</text>
+        <path d="m735 317 6 6 6-6" fill="none" stroke="#6b6b6b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="filter-button">
+        <rect x="780" y="297" width="96" height="48" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="828" y="327" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Filter</text>
+      </g>
+      <g id="add-attendance-button">
+        <rect x="1136" y="297" width="224" height="48" rx="12" fill="#dc143c"/>
+        <text x="1248" y="327" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">+ Tambah Presensi</text>
+      </g>
+    </g>
+
+    <g id="attendance-table">
+      <rect x="80" y="369" width="1280" height="494" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <path d="M81 381a11 11 0 0 1 11-11h1258a10 10 0 0 1 10 10v50H81Z" fill="#f5f3f3"/>
+      <g id="table-header" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">
+        <text x="104" y="408">Tanggal</text>
+        <text x="250" y="408">Nama</text>
+        <text x="538" y="408">Masuk</text>
+        <text x="636" y="408">Pulang</text>
+        <text x="734" y="408">Status</text>
+        <text x="880" y="408">Keterangan</text>
+      </g>
+      <path d="M80 431H1360" stroke="#eaeaea"/>
+
+      <g id="attendance-row-1">
+        <text x="104" y="473" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">10/11/2026</text>
+        <text x="250" y="466" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Budi Santoso</text>
+        <text x="250" y="486" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">IT</text>
+        <text x="538" y="473" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">08:00</text>
+        <text x="636" y="473" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">17:00</text>
+        <rect x="734" y="454" width="61" height="25" rx="4" fill="#e7f6eb"/>
+        <text x="764.5" y="471" fill="#1e7e34" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hadir</text>
+        <text x="802" y="471" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="12">manual</text>
+        <text x="880" y="473" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">Lupa scan QR</text>
+        <rect x="1102" y="447" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1140" y="472" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1186" y="447" width="106" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1239" y="472" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 507H1360" stroke="#eaeaea"/>
+
+      <g id="attendance-row-2">
+        <text x="104" y="549" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">10/11/2026</text>
+        <text x="250" y="542" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Siti Aminah</text>
+        <text x="250" y="562" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">HRD</text>
+        <text x="538" y="549" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">-</text>
+        <text x="636" y="549" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">-</text>
+        <rect x="734" y="530" width="54" height="25" rx="4" fill="#f5f3f3"/>
+        <text x="761" y="547" fill="#4a4a4a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Izin</text>
+        <text x="880" y="549" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">Keperluan keluarga</text>
+        <rect x="1102" y="523" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1140" y="548" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1186" y="523" width="106" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1239" y="548" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 583H1360" stroke="#eaeaea"/>
+
+      <g id="attendance-row-3">
+        <text x="104" y="625" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">09/11/2026</text>
+        <text x="250" y="618" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Andi Pratama</text>
+        <text x="250" y="638" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">Keuangan</text>
+        <text x="538" y="625" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">08:17</text>
+        <text x="636" y="625" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">17:12</text>
+        <rect x="734" y="606" width="92" height="25" rx="4" fill="#fef3c7"/>
+        <text x="780" y="623" fill="#92400e" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Terlambat</text>
+        <text x="832" y="623" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="12">manual</text>
+        <text x="880" y="625" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">Scanner error</text>
+        <rect x="1102" y="599" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1140" y="624" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1186" y="599" width="106" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1239" y="624" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 659H1360" stroke="#eaeaea"/>
+
+      <g id="attendance-row-4">
+        <text x="104" y="701" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">08/11/2026</text>
+        <text x="250" y="694" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Joko Satpam</text>
+        <text x="250" y="714" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">Keamanan</text>
+        <text x="538" y="701" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">-</text>
+        <text x="636" y="701" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">-</text>
+        <rect x="734" y="682" width="58" height="25" rx="4" fill="#eff6ff"/>
+        <text x="763" y="699" fill="#1e40af" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Cuti</text>
+        <text x="880" y="701" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">Cuti tahunan</text>
+        <rect x="1102" y="675" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1140" y="700" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1186" y="675" width="106" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1239" y="700" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 735H1360" stroke="#eaeaea"/>
+
+      <g id="attendance-row-5">
+        <text x="104" y="777" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">07/11/2026</text>
+        <text x="250" y="770" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Dewi Lestari</text>
+        <text x="250" y="790" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">Pemasaran</text>
+        <text x="538" y="777" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">08:03</text>
+        <text x="636" y="777" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">-</text>
+        <rect x="734" y="758" width="61" height="25" rx="4" fill="#e7f6eb"/>
+        <text x="764.5" y="775" fill="#1e7e34" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hadir</text>
+        <text x="802" y="775" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="12">manual</text>
+        <text x="880" y="777" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">Lupa absen pulang</text>
+        <rect x="1102" y="751" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1140" y="776" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1186" y="751" width="106" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1239" y="776" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 811H1360" stroke="#eaeaea"/>
+      <text x="720" y="842" fill="#9a9a9a" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">Daftar menampilkan hingga 20 data per halaman</text>
+    </g>
+
+    <g id="pagination" font-family="Inter, sans-serif" font-size="14">
+      <text x="80" y="909" fill="#6b6b6b">Menampilkan 1–5 dari data presensi bulan ini</text>
+      <g id="pagination-controls">
+        <rect x="1172" y="882" width="40" height="40" rx="10" fill="#ffffff" stroke="#eaeaea"/>
+        <path d="m1196 896-6 6 6 6" fill="none" stroke="#9a9a9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="1220" y="882" width="40" height="40" rx="10" fill="#dc143c"/>
+        <text x="1240" y="907" fill="#ffffff" text-anchor="middle" font-weight="600">1</text>
+        <rect x="1268" y="882" width="40" height="40" rx="10" fill="#ffffff" stroke="#eaeaea"/>
+        <text x="1288" y="907" fill="#4a4a4a" text-anchor="middle">2</text>
+        <rect x="1316" y="882" width="40" height="40" rx="10" fill="#ffffff" stroke="#eaeaea"/>
+        <path d="m1332 896 6 6-6 6" fill="none" stroke="#4a4a4a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1200" viewBox="0 0 1440 1200">
+  <title>Dashboard Analisis — Panel Admin Presensi QR</title>
+  <desc>Prototype vektor dashboard admin, mengikuti layout, navigasi, warna dan komponen project Presensi QR.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1200" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="84" fill="#ffffff"/>
+    <g id="brand">
+      <text x="80" y="40" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="40" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="63" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Panel Admin</text>
+    </g>
+    <g id="account-actions">
+      <g id="profile-link">
+        <circle cx="1124" cy="42" r="20" fill="#f5f3f3"/>
+        <text x="1124" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">AD</text>
+        <text x="1155" y="47" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Admin</text>
+      </g>
+      <g id="theme-toggle">
+        <rect x="1212" y="22" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1234.3 32.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="logout-button">
+        <rect x="1268" y="22" width="92" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1314" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Keluar</text>
+      </g>
+    </g>
+  </g>
+  <path d="M0 83.5H1440" stroke="#eaeaea"/>
+
+  <g id="admin-navigation" font-family="Inter, sans-serif" font-size="14">
+    <rect x="80" y="84" width="88" height="53" fill="#ffffff"/>
+    <text x="80" y="116" fill="#121212" font-weight="600">Dashboard</text>
+    <path d="M80 135.5H168" stroke="#dc143c" stroke-width="2"/>
+    <text x="192" y="116" fill="#4a4a4a">Karyawan</text>
+    <text x="283" y="116" fill="#4a4a4a">Divisi</text>
+    <text x="347" y="116" fill="#4a4a4a">Jam Kerja</text>
+    <text x="444" y="116" fill="#4a4a4a">Persetujuan</text>
+    <text x="568" y="116" fill="#4a4a4a">Presensi Manual</text>
+    <text x="713" y="116" fill="#4a4a4a">Jaringan</text>
+    <text x="802" y="116" fill="#4a4a4a">Perangkat</text>
+    <text x="904" y="116" fill="#4a4a4a">Laporan</text>
+  </g>
+  <path d="M0 137.5H1440" stroke="#eaeaea"/>
+
+  <g id="dashboard-content">
+    <text x="80" y="192" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Dashboard Analisis</text>
+
+    <g id="attendance-summary">
+      <g id="total-employees-card">
+        <rect x="80" y="219" width="243" height="132" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+        <text x="104" y="256" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Total Karyawan</text>
+        <text x="104" y="309" fill="#1b1c1c" font-family="Poppins, sans-serif" font-size="36" font-weight="600">128</text>
+      </g>
+      <g id="on-time-card">
+        <rect x="339" y="219" width="243" height="132" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+        <text x="363" y="256" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Tepat Waktu</text>
+        <text x="363" y="309" fill="#28a745" font-family="Poppins, sans-serif" font-size="36" font-weight="600">42</text>
+      </g>
+      <g id="late-card">
+        <rect x="598" y="219" width="243" height="132" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+        <text x="622" y="256" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Terlambat</text>
+        <text x="622" y="309" fill="#d97706" font-family="Poppins, sans-serif" font-size="36" font-weight="600">8</text>
+      </g>
+      <g id="leave-card">
+        <rect x="857" y="219" width="243" height="132" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+        <text x="881" y="256" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Izin/Sakit/Cuti</text>
+        <text x="881" y="309" fill="#4a4a4a" font-family="Poppins, sans-serif" font-size="36" font-weight="600">5</text>
+      </g>
+      <g id="absent-card">
+        <rect x="1116" y="219" width="244" height="132" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+        <text x="1140" y="256" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Belum Hadir</text>
+        <text x="1140" y="309" fill="#dc143c" font-family="Poppins, sans-serif" font-size="36" font-weight="600">73</text>
+      </g>
+    </g>
+
+    <g id="today-chart-card">
+      <rect x="80" y="375" width="408" height="362" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="104" y="416" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Statistik Hari Ini</text>
+      <g id="today-doughnut-chart">
+        <circle cx="284" cy="551" r="90" fill="none" stroke="#28a745" stroke-width="28" stroke-dasharray="186.9 565.5" transform="rotate(-90 284 551)"/>
+        <circle cx="284" cy="551" r="90" fill="none" stroke="#f59e0b" stroke-width="28" stroke-dasharray="35.6 565.5" stroke-dashoffset="-186.9" transform="rotate(-90 284 551)"/>
+        <circle cx="284" cy="551" r="90" fill="none" stroke="#8a8a8a" stroke-width="28" stroke-dasharray="22.3 565.5" stroke-dashoffset="-222.5" transform="rotate(-90 284 551)"/>
+        <circle cx="284" cy="551" r="90" fill="none" stroke="#dc143c" stroke-width="28" stroke-dasharray="320.7 565.5" stroke-dashoffset="-244.8" transform="rotate(-90 284 551)"/>
+        <text x="284" y="547" fill="#121212" text-anchor="middle" font-family="Poppins, sans-serif" font-size="28" font-weight="600">128</text>
+        <text x="284" y="570" fill="#6b6b6b" text-anchor="middle" font-family="Inter, sans-serif" font-size="13">karyawan</text>
+      </g>
+      <g id="today-chart-legend" font-family="Inter, sans-serif" font-size="12" fill="#4a4a4a">
+        <circle cx="136" cy="674" r="5" fill="#28a745"/><text x="148" y="678">Tepat Waktu</text>
+        <circle cx="271" cy="674" r="5" fill="#f59e0b"/><text x="283" y="678">Terlambat</text>
+        <circle cx="136" cy="703" r="5" fill="#8a8a8a"/><text x="148" y="707">Izin/Sakit/Cuti</text>
+        <circle cx="271" cy="703" r="5" fill="#dc143c"/><text x="283" y="707">Belum Hadir</text>
+      </g>
+    </g>
+
+    <g id="weekly-chart-card">
+      <rect x="512" y="375" width="848" height="362" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="536" y="416" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Kehadiran 7 Hari Terakhir</text>
+      <g id="weekly-bar-chart" font-family="Inter, sans-serif" font-size="12">
+        <g stroke="#eaeaea" stroke-width="1">
+          <path d="M584 474H1328"/><path d="M584 529H1328"/><path d="M584 584H1328"/><path d="M584 639H1328"/>
+        </g>
+        <g fill="#6b6b6b" text-anchor="end">
+          <text x="570" y="478">60</text><text x="570" y="533">40</text><text x="570" y="588">20</text><text x="570" y="643">0</text>
+        </g>
+        <g id="stacked-bars">
+          <rect x="626" y="518" width="48" height="121" rx="3" fill="#28a745"/><rect x="626" y="499" width="48" height="19" rx="3" fill="#f59e0b"/>
+          <rect x="724" y="507" width="48" height="132" rx="3" fill="#28a745"/><rect x="724" y="485" width="48" height="22" rx="3" fill="#f59e0b"/>
+          <rect x="822" y="512" width="48" height="127" rx="3" fill="#28a745"/><rect x="822" y="490" width="48" height="22" rx="3" fill="#f59e0b"/>
+          <rect x="920" y="493" width="48" height="146" rx="3" fill="#28a745"/><rect x="920" y="471" width="48" height="22" rx="3" fill="#f59e0b"/>
+          <rect x="1018" y="501" width="48" height="138" rx="3" fill="#28a745"/><rect x="1018" y="482" width="48" height="19" rx="3" fill="#f59e0b"/>
+          <rect x="1116" y="529" width="48" height="110" rx="3" fill="#28a745"/><rect x="1116" y="512" width="48" height="17" rx="3" fill="#f59e0b"/>
+          <rect x="1214" y="540" width="48" height="99" rx="3" fill="#28a745"/><rect x="1214" y="524" width="48" height="16" rx="3" fill="#f59e0b"/>
+        </g>
+        <g fill="#6b6b6b" text-anchor="middle">
+          <text x="650" y="663">Sen</text><text x="748" y="663">Sel</text><text x="846" y="663">Rab</text>
+          <text x="944" y="663">Kam</text><text x="1042" y="663">Jum</text><text x="1140" y="663">Sab</text><text x="1238" y="663">Min</text>
+        </g>
+        <g id="weekly-chart-legend">
+          <rect x="822" y="695" width="11" height="11" rx="2" fill="#28a745"/><text x="840" y="705" fill="#4a4a4a">Tepat Waktu</text>
+          <rect x="951" y="695" width="11" height="11" rx="2" fill="#f59e0b"/><text x="969" y="705" fill="#4a4a4a">Terlambat</text>
+        </g>
+      </g>
+    </g>
+
+    <g id="on-time-attendance-card">
+      <rect x="80" y="761" width="628" height="348" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="104" y="803" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Hadir Tepat Waktu Hari Ini (42)</text>
+      <path d="M104 827H684" stroke="#eaeaea"/>
+      <g font-family="Inter, sans-serif" font-size="14">
+        <text x="104" y="860" fill="#121212">Andi Pratama <tspan fill="#9a9a9a" font-size="13">Operasional</tspan></text><text x="684" y="860" fill="#6b6b6b" text-anchor="end">07:52</text><path d="M104 879H684" stroke="#eaeaea"/>
+        <text x="104" y="909" fill="#121212">Siti Rahmawati <tspan fill="#9a9a9a" font-size="13">Keuangan</tspan></text><text x="684" y="909" fill="#6b6b6b" text-anchor="end">07:55</text><path d="M104 928H684" stroke="#eaeaea"/>
+        <text x="104" y="958" fill="#121212">Budi Santoso <tspan fill="#9a9a9a" font-size="13">Teknologi</tspan></text><text x="684" y="958" fill="#6b6b6b" text-anchor="end">08:01</text><path d="M104 977H684" stroke="#eaeaea"/>
+        <text x="104" y="1007" fill="#121212">Dewi Lestari <tspan fill="#9a9a9a" font-size="13">Pemasaran</tspan></text><text x="684" y="1007" fill="#6b6b6b" text-anchor="end">08:04</text><path d="M104 1026H684" stroke="#eaeaea"/>
+        <text x="104" y="1056" fill="#121212">Rizky Maulana <tspan fill="#9a9a9a" font-size="13">Operasional</tspan></text><text x="684" y="1056" fill="#6b6b6b" text-anchor="end">08:09</text>
+      </g>
+    </g>
+
+    <g id="late-attendance-card">
+      <rect x="732" y="761" width="628" height="348" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="756" y="803" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Terlambat Hari Ini (8)</text>
+      <path d="M756 827H1336" stroke="#eaeaea"/>
+      <g font-family="Inter, sans-serif" font-size="14">
+        <text x="756" y="860" fill="#121212">Maya Putri <tspan fill="#9a9a9a" font-size="13">Keuangan</tspan></text><text x="1336" y="860" fill="#6b6b6b" text-anchor="end">08:17 · +17 mnt</text><path d="M756 879H1336" stroke="#eaeaea"/>
+        <text x="756" y="909" fill="#121212">Fajar Nugraha <tspan fill="#9a9a9a" font-size="13">Teknologi</tspan></text><text x="1336" y="909" fill="#6b6b6b" text-anchor="end">08:23 · +23 mnt</text><path d="M756 928H1336" stroke="#eaeaea"/>
+        <text x="756" y="958" fill="#121212">Nina Kartika <tspan fill="#9a9a9a" font-size="13">Pemasaran</tspan></text><text x="1336" y="958" fill="#6b6b6b" text-anchor="end">08:31 · +31 mnt</text><path d="M756 977H1336" stroke="#eaeaea"/>
+        <text x="756" y="1007" fill="#121212">Doni Saputra <tspan fill="#9a9a9a" font-size="13">Operasional</tspan></text><text x="1336" y="1007" fill="#6b6b6b" text-anchor="end">08:38 · +38 mnt</text><path d="M756 1026H1336" stroke="#eaeaea"/>
+        <text x="756" y="1056" fill="#121212">Lina Amelia <tspan fill="#9a9a9a" font-size="13">Keuangan</tspan></text><text x="1336" y="1056" fill="#6b6b6b" text-anchor="end">08:44 · +44 mnt</text>
+      </g>
+    </g>
+  </g>
+</svg>

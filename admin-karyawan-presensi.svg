@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" viewBox="0 0 1440 1024">
+  <title>Data Karyawan — Panel Admin Presensi QR</title>
+  <desc>Prototype vektor halaman daftar karyawan admin sesuai project Presensi QR. Data contoh untuk tampilan; impor SVG ini ke Figma untuk mengedit.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1024" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="84" fill="#ffffff"/>
+    <g id="brand">
+      <text x="80" y="40" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="40" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="63" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Panel Admin</text>
+    </g>
+    <g id="account-actions">
+      <g id="profile-link">
+        <circle cx="1124" cy="42" r="20" fill="#f5f3f3"/>
+        <text x="1124" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">AD</text>
+        <text x="1155" y="47" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Admin</text>
+      </g>
+      <g id="theme-toggle">
+        <rect x="1212" y="22" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1234.3 32.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="logout-button">
+        <rect x="1268" y="22" width="92" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1314" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Keluar</text>
+      </g>
+    </g>
+  </g>
+  <path d="M0 83.5H1440" stroke="#eaeaea"/>
+
+  <g id="admin-navigation" font-family="Inter, sans-serif" font-size="14">
+    <text x="80" y="116" fill="#4a4a4a">Dashboard</text>
+    <rect x="185" y="84" width="80" height="53" fill="#ffffff"/>
+    <text x="192" y="116" fill="#121212" font-weight="600">Karyawan</text>
+    <path d="M192 135.5H265" stroke="#dc143c" stroke-width="2"/>
+    <text x="283" y="116" fill="#4a4a4a">Divisi</text>
+    <text x="347" y="116" fill="#4a4a4a">Jam Kerja</text>
+    <text x="444" y="116" fill="#4a4a4a">Persetujuan</text>
+    <text x="568" y="116" fill="#4a4a4a">Presensi Manual</text>
+    <text x="713" y="116" fill="#4a4a4a">Jaringan</text>
+    <text x="802" y="116" fill="#4a4a4a">Perangkat</text>
+    <text x="904" y="116" fill="#4a4a4a">Laporan</text>
+  </g>
+  <path d="M0 137.5H1440" stroke="#eaeaea"/>
+
+  <g id="page-content">
+    <text x="80" y="192" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Data Karyawan</text>
+
+    <g id="employee-filters">
+      <text x="80" y="228" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Cari</text>
+      <rect x="80" y="240" width="288" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+      <g id="search-icon" fill="none" stroke="#9a9a9a" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="105" cy="260" r="7"/>
+        <path d="m110 265 5 5"/>
+      </g>
+      <text x="127" y="269" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">Nama / NIP / email</text>
+
+      <text x="384" y="228" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Divisi</text>
+      <rect x="384" y="240" width="220" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+      <text x="400" y="269" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Semua</text>
+      <path d="m582 259 6 6 6-6" fill="none" stroke="#6b6b6b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <g id="filter-button">
+        <rect x="612" y="240" width="96" height="48" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="660" y="269" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Filter</text>
+      </g>
+      <g id="add-employee-button">
+        <rect x="1140" y="240" width="220" height="48" rx="12" fill="#dc143c"/>
+        <text x="1250" y="269" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">+ Tambah Karyawan</text>
+      </g>
+    </g>
+
+    <g id="employee-table">
+      <rect x="80" y="312" width="1280" height="578" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <path d="M81 324a11 11 0 0 1 11-11h1258a10 10 0 0 1 10 10v58H81Z" fill="#f5f3f3"/>
+      <g id="table-header" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">
+        <text x="104" y="356">NIP</text>
+        <text x="250" y="356">Nama</text>
+        <text x="588" y="356">Divisi</text>
+        <text x="758" y="356">Shift</text>
+        <text x="952" y="356">Role</text>
+        <text x="1057" y="356">Status</text>
+      </g>
+      <path d="M80 382H1360" stroke="#eaeaea"/>
+
+      <g id="row-1">
+        <text x="104" y="429" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">KRY001</text>
+        <circle cx="270" cy="422" r="20" fill="#fce8ec"/>
+        <text x="270" y="427" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">AP</text>
+        <text x="302" y="417" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Andi Pratama</text>
+        <text x="302" y="439" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">andi.pratama@example.com</text>
+        <text x="588" y="429" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Operasional</text>
+        <text x="758" y="429" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Pagi (08:00)</text>
+        <text x="952" y="429" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Karyawan</text>
+        <circle cx="1061" cy="424" r="4" fill="#28a745"/>
+        <text x="1073" y="429" fill="#28a745" font-family="Inter, sans-serif" font-size="14">Aktif</text>
+        <rect x="1146" y="402" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1184" y="427" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1230" y="402" width="100" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1280" y="427" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 462H1360" stroke="#eaeaea"/>
+
+      <g id="row-2">
+        <text x="104" y="509" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">KRY002</text>
+        <circle cx="270" cy="502" r="20" fill="#fce8ec"/>
+        <text x="270" y="507" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">SR</text>
+        <text x="302" y="497" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Siti Rahmawati</text>
+        <text x="302" y="519" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">siti.rahmawati@example.com</text>
+        <text x="588" y="509" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Keuangan</text>
+        <text x="758" y="509" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Pagi (08:00)</text>
+        <text x="952" y="509" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Karyawan</text>
+        <circle cx="1061" cy="504" r="4" fill="#28a745"/>
+        <text x="1073" y="509" fill="#28a745" font-family="Inter, sans-serif" font-size="14">Aktif</text>
+        <rect x="1146" y="482" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1184" y="507" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1230" y="482" width="100" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1280" y="507" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 542H1360" stroke="#eaeaea"/>
+
+      <g id="row-3">
+        <text x="104" y="589" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">KRY003</text>
+        <circle cx="270" cy="582" r="20" fill="#fce8ec"/>
+        <text x="270" y="587" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">BS</text>
+        <text x="302" y="577" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Budi Santoso</text>
+        <text x="302" y="599" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">budi.santoso@example.com</text>
+        <text x="588" y="589" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Teknologi</text>
+        <text x="758" y="589" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Pagi (08:00)</text>
+        <text x="952" y="589" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Karyawan</text>
+        <circle cx="1061" cy="584" r="4" fill="#28a745"/>
+        <text x="1073" y="589" fill="#28a745" font-family="Inter, sans-serif" font-size="14">Aktif</text>
+        <rect x="1146" y="562" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1184" y="587" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1230" y="562" width="100" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1280" y="587" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 622H1360" stroke="#eaeaea"/>
+
+      <g id="row-4">
+        <text x="104" y="669" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">KRY004</text>
+        <circle cx="270" cy="662" r="20" fill="#fce8ec"/>
+        <text x="270" y="667" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">DL</text>
+        <text x="302" y="657" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Dewi Lestari</text>
+        <text x="302" y="679" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">dewi.lestari@example.com</text>
+        <text x="588" y="669" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Pemasaran</text>
+        <text x="758" y="669" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Malam (20:00)</text>
+        <text x="952" y="669" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Karyawan</text>
+        <circle cx="1061" cy="664" r="4" fill="#28a745"/>
+        <text x="1073" y="669" fill="#28a745" font-family="Inter, sans-serif" font-size="14">Aktif</text>
+        <rect x="1146" y="642" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1184" y="667" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1230" y="642" width="100" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1280" y="667" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 702H1360" stroke="#eaeaea"/>
+
+      <g id="row-5">
+        <text x="104" y="749" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">KRY005</text>
+        <circle cx="270" cy="742" r="20" fill="#fce8ec"/>
+        <text x="270" y="747" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">RM</text>
+        <text x="302" y="737" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Rizky Maulana</text>
+        <text x="302" y="759" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">rizky.maulana@example.com</text>
+        <text x="588" y="749" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Operasional</text>
+        <text x="758" y="749" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Pagi (08:00)</text>
+        <text x="952" y="749" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Karyawan</text>
+        <circle cx="1061" cy="744" r="4" fill="#9a9a9a"/>
+        <text x="1073" y="749" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">Nonaktif</text>
+        <rect x="1146" y="722" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1184" y="747" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1230" y="722" width="100" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1280" y="747" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 782H1360" stroke="#eaeaea"/>
+
+      <g id="row-6">
+        <text x="104" y="829" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">KRY006</text>
+        <circle cx="270" cy="822" r="20" fill="#fce8ec"/>
+        <text x="270" y="827" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">NA</text>
+        <text x="302" y="817" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">Nina Amelia</text>
+        <text x="302" y="839" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">nina.amelia@example.com</text>
+        <text x="588" y="829" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Keuangan</text>
+        <text x="758" y="829" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Pagi (08:00)</text>
+        <text x="952" y="829" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Karyawan</text>
+        <circle cx="1061" cy="824" r="4" fill="#28a745"/>
+        <text x="1073" y="829" fill="#28a745" font-family="Inter, sans-serif" font-size="14">Aktif</text>
+        <rect x="1146" y="802" width="76" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1184" y="827" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Edit</text>
+        <rect x="1230" y="802" width="100" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1280" y="827" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M80 862H1360" stroke="#eaeaea"/>
+    </g>
+
+    <g id="pagination" font-family="Inter, sans-serif" font-size="14">
+      <text x="80" y="929" fill="#6b6b6b">Menampilkan 1–6 dari 24 karyawan</text>
+      <g id="pagination-controls">
+        <rect x="1172" y="902" width="40" height="40" rx="10" fill="#ffffff" stroke="#eaeaea"/>
+        <path d="m1196 916-6 6 6 6" fill="none" stroke="#9a9a9a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="1220" y="902" width="40" height="40" rx="10" fill="#dc143c"/>
+        <text x="1240" y="927" fill="#ffffff" text-anchor="middle" font-weight="600">1</text>
+        <rect x="1268" y="902" width="40" height="40" rx="10" fill="#ffffff" stroke="#eaeaea"/>
+        <text x="1288" y="927" fill="#4a4a4a" text-anchor="middle">2</text>
+        <rect x="1316" y="902" width="40" height="40" rx="10" fill="#ffffff" stroke="#eaeaea"/>
+        <path d="m1332 916 6 6-6 6" fill="none" stroke="#4a4a4a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+  </g>
+</svg>

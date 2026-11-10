@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" viewBox="0 0 1440 1024">
+  <title>Jaringan Kantor — Panel Admin Presensi QR</title>
+  <desc>Prototype vektor halaman Jaringan Kantor admin, mengikuti struktur dan komponen project Presensi QR. Data contoh untuk tampilan; impor SVG ini ke Figma untuk mengedit.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1024" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="84" fill="#ffffff"/>
+    <g id="brand">
+      <text x="80" y="40" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="40" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="63" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Panel Admin</text>
+    </g>
+    <g id="account-actions">
+      <circle cx="1124" cy="42" r="20" fill="#f5f3f3"/>
+      <text x="1124" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">AD</text>
+      <text x="1155" y="47" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Admin</text>
+      <g id="theme-toggle">
+        <rect x="1212" y="22" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1234.3 32.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="logout-button">
+        <rect x="1268" y="22" width="92" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1314" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Keluar</text>
+      </g>
+    </g>
+  </g>
+  <path d="M0 83.5H1440" stroke="#eaeaea"/>
+
+  <g id="admin-navigation" font-family="Inter, sans-serif" font-size="14">
+    <text x="80" y="116" fill="#4a4a4a">Dashboard</text>
+    <text x="192" y="116" fill="#4a4a4a">Karyawan</text>
+    <text x="283" y="116" fill="#4a4a4a">Divisi</text>
+    <text x="347" y="116" fill="#4a4a4a">Jam Kerja</text>
+    <text x="444" y="116" fill="#4a4a4a">Persetujuan</text>
+    <text x="568" y="116" fill="#4a4a4a">Presensi Manual</text>
+    <rect x="706" y="84" width="76" height="53" fill="#ffffff"/>
+    <text x="713" y="116" fill="#121212" font-weight="600">Jaringan</text>
+    <path d="M713 135.5H775" stroke="#dc143c" stroke-width="2"/>
+    <text x="802" y="116" fill="#4a4a4a">Perangkat</text>
+    <text x="904" y="116" fill="#4a4a4a">Laporan</text>
+  </g>
+  <path d="M0 137.5H1440" stroke="#eaeaea"/>
+
+  <g id="page-content">
+    <text x="80" y="192" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Jaringan Kantor</text>
+
+    <g id="ip-validation-active-notice">
+      <rect x="80" y="216" width="1280" height="66" rx="12" fill="#e7f6eb" stroke="#a9d8b5"/>
+      <circle cx="108" cy="249" r="12" fill="#28a745"/>
+      <path d="m102 249 4 4 8-9" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="132" y="246" fill="#1e7e34" font-family="Inter, sans-serif" font-size="14" font-weight="600">Validasi IP aktif.</text>
+      <text x="132" y="266" fill="#1e7e34" font-family="Inter, sans-serif" font-size="14">Karyawan hanya bisa menampilkan QR presensi saat HP-nya terhubung ke jaringan di bawah ini.</text>
+    </g>
+
+    <g id="add-network-card">
+      <rect x="80" y="306" width="405" height="547" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="104" y="348" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Tambah Jaringan</text>
+
+      <g id="current-ip-notice">
+        <rect x="104" y="370" width="357" height="72" rx="12" fill="#fbf9f8"/>
+        <text x="120" y="398" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">IP kamu saat ini: <tspan fill="#121212" font-weight="600">103.12.34.56</tspan></text>
+        <text x="120" y="424" fill="#dc143c" font-family="Inter, sans-serif" font-size="14" font-weight="600">pakai IP ini</text>
+        <path d="M197 420h12" stroke="#dc143c" stroke-width="1.5"/>
+      </g>
+
+      <g id="network-name-field">
+        <text x="104" y="478" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Nama</text>
+        <rect x="104" y="490" width="357" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="520" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">Wifi Kantor Lantai 1</text>
+      </g>
+
+      <g id="network-cidr-field">
+        <text x="104" y="574" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">IP atau range (CIDR)</text>
+        <rect x="104" y="586" width="357" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="616" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">192.168.1.0/24</text>
+      </g>
+
+      <g id="network-ip-guidance" font-family="Inter, sans-serif" font-size="13" fill="#6b6b6b">
+        <text x="104" y="668" fill="#4a4a4a" font-weight="600">Server lokal kantor:</text>
+        <text x="104" y="688">isi range jaringan lokal, mis.</text>
+        <text x="104" y="708" font-family="monospace">192.168.1.0/24</text>
+        <text x="104" y="742" fill="#4a4a4a" font-weight="600">Hosting online:</text>
+        <text x="104" y="762">isi IP publik kantor (cek di</text>
+        <text x="104" y="782">whatismyip.com), mis.</text>
+        <text x="104" y="802" font-family="monospace">103.12.34.56</text>
+      </g>
+
+      <g id="add-network-button">
+        <rect x="104" y="817" width="357" height="40" rx="12" fill="#dc143c"/>
+        <text x="282.5" y="842" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Tambah</text>
+      </g>
+    </g>
+
+    <g id="network-list-card">
+      <rect x="509" y="306" width="851" height="318" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <path d="M510 318a11 11 0 0 1 11-11h829a10 10 0 0 1 10 10v53H510Z" fill="#f5f3f3"/>
+      <g id="network-table-header" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">
+        <text x="533" y="349">Nama</text>
+        <text x="780" y="349">IP / Range</text>
+        <text x="1018" y="349">Status</text>
+      </g>
+      <path d="M509 371H1360" stroke="#eaeaea"/>
+
+      <g id="network-row-office-wifi">
+        <text x="533" y="410" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Wifi Kantor Lantai 1</text>
+        <text x="780" y="410" fill="#4a4a4a" font-family="ui-monospace, Consolas, monospace" font-size="14">192.168.1.0/24</text>
+        <circle cx="1022" cy="405" r="4" fill="#28a745"/>
+        <text x="1034" y="410" fill="#1e7e34" font-family="Inter, sans-serif" font-size="14" font-weight="600">Aktif</text>
+        <rect x="1092" y="389" width="134" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1159" y="414" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Nonaktifkan</text>
+        <rect x="1234" y="389" width="102" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1285" y="414" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M509 447H1360" stroke="#eaeaea"/>
+
+      <g id="network-row-office-public-ip">
+        <text x="533" y="486" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">IP Publik Kantor</text>
+        <text x="780" y="486" fill="#4a4a4a" font-family="ui-monospace, Consolas, monospace" font-size="14">103.12.34.56</text>
+        <circle cx="1022" cy="481" r="4" fill="#28a745"/>
+        <text x="1034" y="486" fill="#1e7e34" font-family="Inter, sans-serif" font-size="14" font-weight="600">Aktif</text>
+        <rect x="1092" y="465" width="134" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1159" y="490" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Nonaktifkan</text>
+        <rect x="1234" y="465" width="102" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1285" y="490" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+      <path d="M509 523H1360" stroke="#eaeaea"/>
+
+      <g id="network-row-guest-wifi">
+        <text x="533" y="562" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Wifi Tamu</text>
+        <text x="780" y="562" fill="#4a4a4a" font-family="ui-monospace, Consolas, monospace" font-size="14">192.168.2.0/24</text>
+        <circle cx="1022" cy="557" r="4" fill="#9a9a9a"/>
+        <text x="1034" y="562" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">Nonaktif</text>
+        <rect x="1092" y="541" width="134" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1159" y="566" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Aktifkan</text>
+        <rect x="1234" y="541" width="102" height="40" rx="12" fill="#ffdad6"/>
+        <text x="1285" y="566" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Hapus</text>
+      </g>
+    </g>
+
+    <g id="trusted-proxies-note">
+      <circle cx="86" cy="899" r="3" fill="#9a9a9a"/>
+      <text x="98" y="904" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Catatan: jika aplikasi berada di belakang proxy (mis. Cloudflare), atur TRUSTED_PROXIES di file .env</text>
+      <text x="98" y="926" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">supaya IP asli karyawan terbaca.</text>
+    </g>
+  </g>
+</svg>
