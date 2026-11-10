@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="920" viewBox="0 0 1440 920">
+  <title>Edit Presensi — Panel Admin Presensi QR</title>
+  <desc>Prototype vektor halaman edit presensi manual admin mengikuti formulir dan design system project Presensi QR. Data contoh untuk tampilan; impor SVG ini ke Figma untuk mengedit.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="920" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="84" fill="#ffffff"/>
+    <g id="brand">
+      <text x="80" y="40" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="40" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="63" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Panel Admin</text>
+    </g>
+    <g id="account-actions">
+      <circle cx="1124" cy="42" r="20" fill="#fce8ec"/>
+      <text x="1124" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">AD</text>
+      <text x="1155" y="47" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Admin</text>
+      <g id="theme-toggle">
+        <rect x="1212" y="22" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1234.3 32.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="logout-button">
+        <rect x="1268" y="22" width="92" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1314" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Keluar</text>
+      </g>
+    </g>
+  </g>
+  <path d="M0 83.5H1440" stroke="#eaeaea"/>
+
+  <g id="admin-navigation" font-family="Inter, sans-serif" font-size="14">
+    <text x="80" y="116" fill="#4a4a4a">Dashboard</text>
+    <text x="192" y="116" fill="#4a4a4a">Karyawan</text>
+    <text x="283" y="116" fill="#4a4a4a">Divisi</text>
+    <text x="347" y="116" fill="#4a4a4a">Jam Kerja</text>
+    <text x="444" y="116" fill="#4a4a4a">Persetujuan</text>
+    <rect x="561" y="84" width="133" height="53" fill="#ffffff"/>
+    <text x="568" y="116" fill="#121212" font-weight="600">Presensi Manual</text>
+    <path d="M568 135.5H687" stroke="#dc143c" stroke-width="2"/>
+    <text x="713" y="116" fill="#4a4a4a">Jaringan</text>
+    <text x="802" y="116" fill="#4a4a4a">Perangkat</text>
+    <text x="904" y="116" fill="#4a4a4a">Laporan</text>
+  </g>
+  <path d="M0 137.5H1440" stroke="#eaeaea"/>
+
+  <g id="page-content">
+    <text x="80" y="192" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Edit Presensi</text>
+
+    <g id="attendance-form-card">
+      <rect x="80" y="216" width="672" height="600" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+
+      <g id="employee-information">
+        <text x="104" y="258" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Karyawan</text>
+        <text x="104" y="286" fill="#121212" font-family="Inter, sans-serif" font-size="16" font-weight="600">Budi Santoso</text>
+        <text x="207" y="286" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">IT</text>
+      </g>
+      <g id="date-information">
+        <text x="424" y="258" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Tanggal</text>
+        <text x="424" y="286" fill="#121212" font-family="Inter, sans-serif" font-size="16" font-weight="600">10/11/2026</text>
+      </g>
+
+      <g id="attendance-type-field">
+        <text x="104" y="338" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Jenis</text>
+        <rect x="104" y="350" width="624" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="380" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Hadir (lupa absen / input manual)</text>
+        <path d="m698 370 6 6 6-6" fill="none" stroke="#6b6b6b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <g id="check-in-field">
+        <text x="104" y="430" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Jam masuk</text>
+        <rect x="104" y="442" width="304" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="472" fill="#121212" font-family="Inter, sans-serif" font-size="16">08:17</text>
+        <path d="M380 457v17m-4-4 4 4 4-4" fill="none" stroke="#6b6b6b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="check-out-field">
+        <text x="424" y="430" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Jam pulang</text>
+        <text x="512" y="430" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="12">(kosongkan kalau belum pulang)</text>
+        <rect x="424" y="442" width="304" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="440" y="472" fill="#121212" font-family="Inter, sans-serif" font-size="16">17:00</text>
+        <path d="M700 457v17m-4-4 4 4 4-4" fill="none" stroke="#6b6b6b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <g id="attendance-calculation-note">
+        <circle cx="108" cy="523" r="3" fill="#9a9a9a"/>
+        <text x="120" y="528" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">
+          <tspan>Status </tspan><tspan fill="#4a4a4a" font-weight="600">Hadir</tspan><tspan> atau </tspan><tspan fill="#4a4a4a" font-weight="600">Terlambat</tspan>
+          <tspan>, menit telat, dan lembur dihitung otomatis dari jam kerja</tspan>
+        </text>
+        <text x="120" y="548" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">dan toleransi shift karyawan.</text>
+      </g>
+
+      <g id="note-field">
+        <text x="104" y="597" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Keterangan</text>
+        <text x="190" y="597" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="13">(opsional)</text>
+        <rect x="104" y="609" width="624" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="639" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Lupa scan QR, sudah konfirmasi ke atasan</text>
+      </g>
+
+      <g id="form-actions">
+        <rect x="104" y="687" width="108" height="40" rx="12" fill="#dc143c"/>
+        <text x="158" y="712" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Simpan</text>
+        <rect x="220" y="687" width="96" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="268" y="712" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Batal</text>
+      </g>
+    </g>
+  </g>
+</svg>
