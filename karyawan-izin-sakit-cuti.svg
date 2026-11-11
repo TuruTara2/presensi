@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1024" viewBox="0 0 1440 1024">
+  <title>Izin / Sakit / Cuti — Portal Karyawan Presensi QR</title>
+  <desc>Prototype vektor halaman pengajuan izin, sakit, cuti karyawan. Mengikuti form dan tabel project; data contoh untuk tampilan. Impor SVG ini ke Figma untuk mengedit.</desc>
+  <defs>
+    <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".05"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="1024" fill="#ffffff"/>
+
+  <g id="header">
+    <rect width="1440" height="84" fill="#ffffff"/>
+    <g id="brand">
+      <text x="80" y="40" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Presensi</text>
+      <text x="179" y="40" fill="#dc143c" font-family="Poppins, sans-serif" font-size="22" font-weight="600">QR</text>
+      <text x="80" y="63" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="14">Portal Karyawan</text>
+    </g>
+    <g id="account-actions">
+      <circle cx="1124" cy="42" r="20" fill="#fce8ec"/>
+      <text x="1124" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600">BS</text>
+      <text x="1155" y="47" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Budi Santoso</text>
+      <g id="theme-toggle">
+        <rect x="1212" y="22" width="40" height="40" rx="12" fill="#ffffff" stroke="#eaeaea" stroke-width="1.5"/>
+        <path d="M1234.3 32.2a9 9 0 1 0 9.5 12.6 7.1 7.1 0 0 1-9.5-12.6Z" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="logout-button">
+        <rect x="1268" y="22" width="92" height="40" rx="12" fill="#ffffff" stroke="#dc143c" stroke-width="1.5"/>
+        <text x="1314" y="47" fill="#dc143c" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Keluar</text>
+      </g>
+    </g>
+  </g>
+  <path d="M0 83.5H1440" stroke="#eaeaea"/>
+
+  <g id="employee-navigation" font-family="Inter, sans-serif" font-size="14">
+    <text x="80" y="116" fill="#4a4a4a">Presensi</text>
+    <text x="195" y="116" fill="#4a4a4a">Riwayat</text>
+    <rect x="277" y="84" width="160" height="53" fill="#ffffff"/>
+    <text x="284" y="116" fill="#121212" font-weight="600">Izin / Sakit / Cuti</text>
+    <path d="M284 135.5H430" stroke="#dc143c" stroke-width="2"/>
+    <text x="454" y="116" fill="#4a4a4a">Profil</text>
+  </g>
+  <path d="M0 137.5H1440" stroke="#eaeaea"/>
+
+  <g id="page-content">
+    <text x="80" y="192" fill="#121212" font-family="Poppins, sans-serif" font-size="28" font-weight="600">Izin / Sakit / Cuti</text>
+
+    <g id="request-form-card">
+      <rect x="80" y="216" width="405" height="664" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <text x="104" y="258" fill="#121212" font-family="Poppins, sans-serif" font-size="22" font-weight="600">Form Pengajuan</text>
+
+      <g id="request-type-field">
+        <text x="104" y="302" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Jenis</text>
+        <rect x="104" y="314" width="357" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="344" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="16">Izin</text>
+        <path d="m431 334 6 6 6-6" fill="none" stroke="#6b6b6b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <g id="start-date-field">
+        <text x="104" y="394" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Dari</text>
+        <rect x="104" y="406" width="169" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="436" fill="#121212" font-family="Inter, sans-serif" font-size="14">10/11/2026</text>
+        <rect x="243" y="419" width="16" height="15" rx="2" fill="none" stroke="#6b6b6b" stroke-width="1.5"/>
+        <path d="M247 416v6m8-6v6m-12 3h16" stroke="#6b6b6b" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+
+      <g id="end-date-field">
+        <text x="292" y="394" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Sampai</text>
+        <rect x="292" y="406" width="169" height="48" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="308" y="436" fill="#121212" font-family="Inter, sans-serif" font-size="14">11/11/2026</text>
+        <rect x="431" y="419" width="16" height="15" rx="2" fill="none" stroke="#6b6b6b" stroke-width="1.5"/>
+        <path d="M435 416v6m8-6v6m-12 3h16" stroke="#6b6b6b" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+
+      <g id="reason-field">
+        <text x="104" y="486" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".28">Alasan</text>
+        <rect x="104" y="498" width="357" height="112" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <text x="120" y="526" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">Keperluan keluarga, mohon izin tidak</text>
+        <text x="120" y="548" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="14">masuk selama dua hari.</text>
+        <path d="m439 600 14-14m-9 16 11-2 2-11" fill="none" stroke="#b3b3b3" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+
+      <g id="attachment-field">
+        <text x="104" y="646" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600" letter-spacing=".18">Lampiran (JPG/PNG/PDF, maks 2MB)</text>
+        <rect x="104" y="658" width="357" height="56" rx="12" fill="#ffffff" stroke="#e5e5e5"/>
+        <rect x="116" y="669" width="105" height="34" rx="8" fill="#f5f3f3" stroke="#e5e5e5"/>
+        <text x="168.5" y="691" fill="#4a4a4a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Pilih file</text>
+        <text x="233" y="691" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="13">surat-izin.pdf</text>
+      </g>
+
+      <g id="submit-request-button">
+        <rect x="104" y="746" width="357" height="48" rx="12" fill="#dc143c"/>
+        <text x="282.5" y="776" fill="#ffffff" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600">Kirim Pengajuan</text>
+      </g>
+    </g>
+
+    <g id="request-history-card">
+      <rect x="509" y="216" width="851" height="664" rx="12" fill="#ffffff" stroke="#eaeaea" filter="url(#card-shadow)"/>
+      <path d="M510 228a11 11 0 0 1 11-11h829a10 10 0 0 1 10 10v55H510Z" fill="#f5f3f3"/>
+      <g id="history-table-header" fill="#121212" font-family="Inter, sans-serif" font-size="14" font-weight="600">
+        <text x="533" y="252">Jenis</text>
+        <text x="648" y="252">Tanggal</text>
+        <text x="891" y="252">Status</text>
+        <text x="1040" y="252">Catatan Admin</text>
+      </g>
+      <path d="M509 272H1360" stroke="#eaeaea"/>
+
+      <g id="request-row-pending">
+        <rect x="533" y="300" width="54" height="25" rx="4" fill="#f5f3f3"/>
+        <text x="560" y="317" fill="#4a4a4a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Izin</text>
+        <text x="648" y="310" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="13">10 Nov - 11 Nov 2026</text>
+        <text x="648" y="335" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="12">Keperluan keluarga, mohon izin tidak masuk selama dua hari.</text>
+        <text x="648" y="357" fill="#dc143c" font-family="Inter, sans-serif" font-size="12" text-decoration="underline">lampiran</text>
+        <rect x="891" y="300" width="76" height="25" rx="4" fill="#fef3c7"/>
+        <text x="929" y="317" fill="#92400e" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Pending</text>
+        <text x="1040" y="315" fill="#9a9a9a" font-family="Inter, sans-serif" font-size="14">-</text>
+      </g>
+      <path d="M509 381H1360" stroke="#eaeaea"/>
+
+      <g id="request-row-approved">
+        <rect x="533" y="408" width="59" height="25" rx="4" fill="#e0f2fe"/>
+        <text x="562.5" y="425" fill="#075985" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Sakit</text>
+        <text x="648" y="418" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="13">03 Nov - 03 Nov 2026</text>
+        <text x="648" y="443" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="12">Kurang sehat dan perlu istirahat.</text>
+        <rect x="891" y="408" width="96" height="25" rx="4" fill="#e7f6eb"/>
+        <text x="939" y="425" fill="#1e7e34" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Disetujui</text>
+        <text x="1040" y="418" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="13">Semoga lekas pulih.</text>
+      </g>
+      <path d="M509 472H1360" stroke="#eaeaea"/>
+
+      <g id="request-row-rejected">
+        <rect x="533" y="499" width="55" height="25" rx="4" fill="#eff6ff"/>
+        <text x="560.5" y="516" fill="#1e40af" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Cuti</text>
+        <text x="648" y="509" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="13">28 Okt - 30 Okt 2026</text>
+        <text x="648" y="534" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="12">Mengajukan cuti tahunan.</text>
+        <rect x="891" y="499" width="80" height="25" rx="4" fill="#ffdad6"/>
+        <text x="931" y="516" fill="#93000a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Ditolak</text>
+        <text x="1040" y="509" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="13">Jadwal tim belum memungkinkan.</text>
+      </g>
+      <path d="M509 563H1360" stroke="#eaeaea"/>
+
+      <g id="request-row-second-approved">
+        <rect x="533" y="590" width="54" height="25" rx="4" fill="#f5f3f3"/>
+        <text x="560" y="607" fill="#4a4a4a" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Izin</text>
+        <text x="648" y="600" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="13">15 Okt - 15 Okt 2026</text>
+        <text x="648" y="625" fill="#6b6b6b" font-family="Inter, sans-serif" font-size="12">Keperluan keluarga.</text>
+        <rect x="891" y="590" width="96" height="25" rx="4" fill="#e7f6eb"/>
+        <text x="939" y="607" fill="#1e7e34" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="600">Disetujui</text>
+        <text x="1040" y="600" fill="#4a4a4a" font-family="Inter, sans-serif" font-size="13">Disetujui.</text>
+      </g>
+      <path d="M509 654H1360" stroke="#eaeaea"/>
+      <text x="934.5" y="710" fill="#9a9a9a" text-anchor="middle" font-family="Inter, sans-serif" font-size="14">Pengajuan terbaru ditampilkan di urutan paling atas.</text>
+    </g>
+  </g>
+</svg>
