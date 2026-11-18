@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Services\AttendanceService;
 use App\Services\QrToken;
 use Illuminate\Http\Request;
@@ -12,6 +13,24 @@ class ScanController extends Controller
     public function index()
     {
         return view('scan');
+    }
+
+    public function recent()
+    {
+        $attendances = Attendance::with('user:id,name')
+            ->whereDate('date', today())
+            ->latest('updated_at')
+            ->latest('id')
+            ->limit(30)
+            ->get(['id', 'user_id', 'check_in', 'check_out', 'status', 'is_manual']);
+
+        return response()->json($attendances->map(fn (Attendance $attendance) => [
+            'name' => $attendance->user->name,
+            'check_in' => $attendance->check_in ? substr($attendance->check_in, 0, 5) : null,
+            'check_out' => $attendance->check_out ? substr($attendance->check_out, 0, 5) : null,
+            'status' => $attendance->status,
+            'is_manual' => $attendance->is_manual,
+        ]));
     }
 
     /** Tahap 1: cek QR saja (belum mencatat absen), supaya kiosk bisa lanjut ke tahap foto wajah. */

@@ -184,38 +184,45 @@
             ${d.overtime_text ? `<div class="mt-2 text-sm font-semibold text-body">Lembur: ${esc(d.overtime_text)}</div>` : ''}
             ${previewUrl ? `<img src="${previewUrl}" alt="Foto wajah" class="mt-3 h-24 w-24 rounded-xl object-cover ring-1 ring-slate-200">` : ''}`;
         if (ok) {
-            const item = { name: d.name, type: d.type, time: d.time, status: d.status, day: todayKey() };
-            addRecent(item);
-            saveRecent(item);
+            loadRecent();
         }
     }
 
-    // ---- Daftar "Scan di sesi ini": disimpan di browser ini, tetap ada setelah refresh / ganti tema.
-    // Hanya scan hari ini yang ditampilkan (otomatis reset besok), maksimal 30 item.
-    const RECENT_KEY = 'scan_recent_v1', RECENT_MAX = 30;
-    const todayKey = () => new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD (waktu lokal)
+    async function loadRecent() {
+        const list = document.getElementById('recent');
+        try {
+            const response = await fetch(@json(route('scan.recent')), {
+                headers: { 'Accept': 'application/json' },
+                cache: 'no-store',
+            });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-    function addRecent(d) {
-        document.getElementById('emptyRecent')?.remove();
-        const li = document.createElement('li');
-        li.className = 'flex justify-between py-2';
-        li.innerHTML = `<span>${esc(d.name)}</span><span class="text-slate-500">${d.type === 'masuk' ? 'Masuk' : 'Pulang'} ${esc(String(d.time).slice(0,5))} (${esc(d.status)})</span>`;
-        document.getElementById('recent').prepend(li);
-    }
-    function loadRecent() {
-        try {
-            const list = (JSON.parse(localStorage.getItem(RECENT_KEY)) || []).filter(x => x.day === todayKey());
-            list.forEach(addRecent); // urutan lama -> baru, prepend jadi terbaru di atas
-        } catch (e) {}
-    }
-    function saveRecent(item) {
-        try {
-            const list = (JSON.parse(localStorage.getItem(RECENT_KEY)) || []).filter(x => x.day === todayKey());
-            list.push(item);
-            localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(-RECENT_MAX)));
-        } catch (e) {}
+            const attendances = await response.json();
+            list.replaceChildren();
+            if (attendances.length === 0) {
+                list.innerHTML = '<li id="emptyRecent" class="py-4 text-center text-slate-400">Belum ada scan.</li>';
+                return;
+            }
+
+            attendances.forEach(attendance => {
+                const times = [
+                    attendance.check_in ? `Masuk ${esc(attendance.check_in)}` : '',
+                    attendance.check_out ? `Pulang ${esc(attendance.check_out)}` : '',
+                ].filter(Boolean).join(' · ');
+                const manual = attendance.is_manual ? ', manual' : '';
+                const li = document.createElement('li');
+                li.className = 'flex justify-between py-2';
+                li.innerHTML = `<span>${esc(attendance.name)}</span><span class="text-slate-500">${times ? `${times} ` : ''}(${esc(attendance.status + manual)})</span>`;
+                list.append(li);
+            });
+        } catch (e) {
+            console.error('Gagal memuat aktivitas presensi terbaru.', e);
+            list.replaceChildren();
+            list.innerHTML = '<li class="py-4 text-center text-error">Gagal memuat aktivitas presensi terbaru.</li>';
+        }
     }
     loadRecent();
+    setInterval(loadRecent, 15000);
 
     // Scanner dibuat cepat: hanya baca QR, resolusi HD, fokus otomatis, area baca besar, dan fps tinggi.
     const scanner = new Html5Qrcode('reader', {

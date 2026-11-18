@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 // Halaman scan QR publik (sebelum login)
 Route::get('/', [ScanController::class, 'index'])->name('scan');
+Route::get('/scan/recent', [ScanController::class, 'recent'])->name('scan.recent');
 Route::post('/scan/verify', [ScanController::class, 'verify'])->middleware('throttle:60,1')->name('scan.verify');
 Route::post('/scan', [ScanController::class, 'process'])->middleware('throttle:60,1')->name('scan.process');
 
