@@ -68,14 +68,12 @@ class ReportController extends Controller
             fwrite($out, "\xEF\xBB\xBF"); // BOM supaya Excel baca UTF-8
             fwrite($out, "sep=;\r\n"); // Excel mengikuti pemisah kolom ini meski regional memakai titik koma
             $writeRow = fn (array $columns) => fputcsv($out, $columns, ';', '"', '\\', "\r\n");
-            $writeRow(['Tanggal', 'NIP', 'Nama', 'Divisi', 'Jam Masuk', 'Jam Pulang', 'Status', 'Terlambat (menit)', 'Lembur (menit)', 'Foto Masuk', 'Foto Pulang']);
+            $writeRow(['Tanggal', 'NIP', 'Nama', 'Divisi', 'Jam Masuk', 'Jam Pulang', 'Status', 'Terlambat (menit)', 'Lembur (menit)']);
             foreach ($rows as $r) {
                 $writeRow([
                     $r->date->format('d/m/Y'), $r->user->nip, $r->user->name, $r->user->division?->name,
                     $r->check_in ? substr($r->check_in, 0, 5) : '', $r->check_out ? substr($r->check_out, 0, 5) : '',
                     ucfirst($r->status), $r->late_minutes, $r->overtime_minutes,
-                    $r->check_in_photo ? route('admin.laporan.foto', [$r, 'masuk']) : '',
-                    $r->check_out_photo ? route('admin.laporan.foto', [$r, 'pulang']) : '',
                 ]);
             }
             fclose($out);
