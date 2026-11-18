@@ -66,17 +66,20 @@ class ReportController extends Controller
         return response()->streamDownload(function () use ($rows) {
             $out = fopen('php://output', 'w');
             fwrite($out, "\xEF\xBB\xBF"); // BOM supaya Excel baca UTF-8
-            fputcsv($out, ['Tanggal', 'NIP', 'Nama', 'Divisi', 'Jam Masuk', 'Jam Pulang', 'Status', 'Terlambat (menit)', 'Lembur (menit)', 'Foto Masuk', 'Foto Pulang']);
+            fwrite($out, "sep=;\r\n"); // Excel mengikuti pemisah kolom ini meski regional memakai titik koma
+            $writeRow = fn (array $columns) => fputcsv($out, $columns, ';', '"', '\\', "\r\n");
+            $writeRow(['Tanggal', 'NIP', 'Nama', 'Divisi', 'Jam Masuk', 'Jam Pulang', 'Status', 'Terlambat (menit)', 'Lembur (menit)', 'Foto Masuk', 'Foto Pulang']);
             foreach ($rows as $r) {
-                fputcsv($out, [
-                    $r->date->format('Y-m-d'), $r->user->nip, $r->user->name, $r->user->division?->name,
-                    $r->check_in, $r->check_out, ucfirst($r->status), $r->late_minutes, $r->overtime_minutes,
+                $writeRow([
+                    $r->date->format('d/m/Y'), $r->user->nip, $r->user->name, $r->user->division?->name,
+                    $r->check_in ? substr($r->check_in, 0, 5) : '', $r->check_out ? substr($r->check_out, 0, 5) : '',
+                    ucfirst($r->status), $r->late_minutes, $r->overtime_minutes,
                     $r->check_in_photo ? route('admin.laporan.foto', [$r, 'masuk']) : '',
                     $r->check_out_photo ? route('admin.laporan.foto', [$r, 'pulang']) : '',
                 ]);
             }
             fclose($out);
-        }, "laporan-presensi_{$from}_{$to}.csv", ['Content-Type' => 'text/csv']);
+        }, "laporan-presensi_{$from}_{$to}.csv", ['Content-Type' => 'text/csv; charset=UTF-8']);
     }
 
     /** Tampilkan foto scan (disk privat) - hanya admin yang login. */
