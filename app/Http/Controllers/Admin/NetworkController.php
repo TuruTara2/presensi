@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\NetworkPresence;
 use App\Models\OfficeNetwork;
 use App\Services\NetworkGuard;
 use Illuminate\Http\Request;
@@ -15,7 +16,25 @@ class NetworkController extends Controller
             'items' => OfficeNetwork::orderBy('label')->get(),
             'enabled' => NetworkGuard::enabled(),
             'myIp' => $request->ip(),
+            'presences' => $this->employeePresences()->get(),
+            'onlineSince' => now()->subMinute(),
         ]);
+    }
+
+    public function presence()
+    {
+        $onlineSince = now()->subMinute();
+        $enabled = NetworkGuard::enabled();
+
+        return response()->json(
+            $this->employeePresences()->get()->map(fn (NetworkPresence $presence) => [
+                'name' => $presence->user->name,
+                'device' => $presence->user->device_name ?: 'Perangkat tidak dikenal',
+                'ip_address' => $presence->ip_address,
+                'last_seen_at' => $presence->last_seen_at->toIso8601String(),
+                'online' => $enabled && $presence->last_seen_at->greaterThanOrEqualTo($onlineSince),
+            ])->values()
+        );
     }
 
     public function store(Request $request)
@@ -49,5 +68,12 @@ class NetworkController extends Controller
         $jaringan->delete();
 
         return back()->with('success', 'Jaringan dihapus.');
+    }
+
+    private function employeePresences()
+    {
+        return NetworkPresence::with('user:id,name,device_name')
+            ->whereHas('user', fn ($query) => $query->where('role', 'karyawan'))
+            ->orderByDesc('last_seen_at');
     }
 }

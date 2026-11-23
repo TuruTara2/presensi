@@ -74,6 +74,52 @@
 </main>
 @stack('scripts')
 
+@if (! $isAdmin)
+<script>
+    (function () {
+        var inFlight = false;
+        var lastFailure = null;
+        var url = @json(route('karyawan.network-presence'));
+
+        async function sendHeartbeat() {
+            if (inFlight || document.visibilityState !== 'visible') return;
+            inFlight = true;
+            try {
+                var response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    credentials: 'same-origin'
+                });
+                if (!response.ok) {
+                    if (lastFailure !== response.status) {
+                        console.error('Heartbeat jaringan gagal:', response.status);
+                    }
+                    lastFailure = response.status;
+                    return;
+                }
+                lastFailure = null;
+            } catch (error) {
+                if (lastFailure !== 'network') {
+                    console.error('Tidak dapat mengirim heartbeat jaringan:', error);
+                }
+                lastFailure = 'network';
+            } finally {
+                inFlight = false;
+            }
+        }
+
+        sendHeartbeat();
+        window.setInterval(sendHeartbeat, 20000);
+        document.addEventListener('visibilitychange', function () {
+            if (document.visibilityState === 'visible') sendHeartbeat();
+        });
+    })();
+</script>
+@endif
+
 {{-- Cegah tombol Back membawa pengguna yang sudah login kembali ke halaman sebelumnya (terutama login). --}}
 <script>
     (function () {

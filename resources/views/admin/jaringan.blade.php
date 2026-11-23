@@ -51,5 +51,109 @@
         </table>
     </div>
 </div>
+
+<div class="card mt-6">
+    <div class="mb-4">
+        <h2 class="font-semibold">Perangkat karyawan di jaringan</h2>
+        <p class="mt-1 text-sm text-slate-500">
+            Perangkat tercatat saat karyawan login dan halaman website terbuka. Status online berarti heartbeat diterima dari jaringan aktif dalam 1 menit terakhir; daftar diperbarui otomatis tiap 30 detik.
+        </p>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-line">
+            <thead class="bg-surface-low">
+                <tr>
+                    <th class="th">Karyawan</th>
+                    <th class="th">Perangkat</th>
+                    <th class="th">IP terakhir</th>
+                    <th class="th">Status</th>
+                    <th class="th">Terakhir terlihat</th>
+                </tr>
+            </thead>
+            <tbody id="networkPresenceRows" class="divide-y divide-line">
+                @forelse ($presences as $presence)
+                    @php($online = $enabled && $presence->last_seen_at->greaterThanOrEqualTo($onlineSince))
+                    <tr>
+                        <td class="td">{{ $presence->user->name }}</td>
+                        <td class="td">{{ $presence->user->device_name ?: 'Perangkat tidak dikenal' }}</td>
+                        <td class="td font-mono">{{ $presence->ip_address }}</td>
+                        <td class="td">
+                            @if ($online)
+                                <span class="font-semibold text-success-text">Online</span>
+                            @else
+                                <span class="text-slate-400">Offline</span>
+                            @endif
+                        </td>
+                        <td class="td">{{ $presence->last_seen_at->format('d M Y H:i:s') }}</td>
+                    </tr>
+                @empty
+                    <tr><td class="td py-8 text-center text-slate-400" colspan="5">Belum ada perangkat yang terdeteksi.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var body = document.getElementById('networkPresenceRows');
+        var url = @json(route('admin.jaringan.presence'));
+        var lastFailure = false;
+
+        function cell(row, value, className) {
+            var td = document.createElement('td');
+            td.className = className || 'td';
+            td.textContent = value;
+            row.appendChild(td);
+            return td;
+        }
+
+        function render(rows) {
+            body.replaceChildren();
+            if (!rows.length) {
+                var emptyRow = document.createElement('tr');
+                var emptyCell = cell(emptyRow, 'Belum ada perangkat yang terdeteksi.', 'td py-8 text-center text-slate-400');
+                emptyCell.colSpan = 5;
+                body.appendChild(emptyRow);
+                return;
+            }
+
+            rows.forEach(function (item) {
+                var row = document.createElement('tr');
+                cell(row, item.name);
+                cell(row, item.device);
+                cell(row, item.ip_address, 'td font-mono');
+
+                var status = cell(row, item.online ? 'Online' : 'Offline');
+                status.className = item.online ? 'td font-semibold text-success-text' : 'td text-slate-400';
+
+                var date = new Date(item.last_seen_at);
+                cell(row, new Intl.DateTimeFormat('id-ID', {
+                    dateStyle: 'medium',
+                    timeStyle: 'medium'
+                }).format(date));
+                body.appendChild(row);
+            });
+        }
+
+        async function refresh() {
+            try {
+                var response = await fetch(url, {
+                    headers: { 'Accept': 'application/json' },
+                    cache: 'no-store'
+                });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                render(await response.json());
+                lastFailure = false;
+            } catch (error) {
+                if (!lastFailure) console.error('Gagal memperbarui daftar perangkat jaringan:', error);
+                lastFailure = true;
+            }
+        }
+
+        window.setInterval(refresh, 30000);
+    })();
+</script>
+
 <p class="mt-6 text-sm text-slate-500">Catatan: kalau aplikasi berada di belakang proxy (mis. Cloudflare), isi <code>TRUSTED_PROXIES</code> di file <code>.env</code> supaya IP asli karyawan terbaca.</p>
 @endsection

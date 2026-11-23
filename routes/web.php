@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\NetworkPresenceController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ScanController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
         Route::put('/profil/password', [KaryawanController::class, 'updatePassword'])->name('profil.password');
         Route::get('/izin', [KaryawanController::class, 'izinIndex'])->name('izin');
         Route::post('/izin', [KaryawanController::class, 'izinStore'])->name('izin.store');
+        Route::post('/network-presence', [NetworkPresenceController::class, 'heartbeat'])
+            ->middleware('throttle:30,1')
+            ->name('network-presence');
     });
 
     // ---- Admin
@@ -62,6 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/izin/{izin}', [Admin\LeaveApprovalController::class, 'decide'])->name('izin.decide');
 
         Route::get('/jaringan', [Admin\NetworkController::class, 'index'])->name('jaringan');
+        Route::get('/jaringan/presence', [Admin\NetworkController::class, 'presence'])->name('jaringan.presence');
         Route::post('/jaringan', [Admin\NetworkController::class, 'store'])->name('jaringan.store');
         Route::put('/jaringan/{jaringan}', [Admin\NetworkController::class, 'toggle'])->name('jaringan.toggle');
         Route::delete('/jaringan/{jaringan}', [Admin\NetworkController::class, 'destroy'])->name('jaringan.destroy');
