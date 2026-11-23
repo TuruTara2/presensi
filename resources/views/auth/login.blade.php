@@ -40,18 +40,12 @@
         <a href="{{ route('scan') }}" class="mt-6 block text-center text-sm font-semibold text-primary hover:underline">Kembali ke halaman scan QR</a>
     </div>
 <script>
-    // Setelah login lalu tekan Back, isian form dikosongkan lagi
+    // Reload history-restored forms so they receive the current session's CSRF token.
     (function () {
-        var form = document.getElementById('loginForm');
-        function clearForm() {
-            form.reset();
-            form.querySelectorAll('input[type=password]').forEach(function (i) { i.value = ''; });
-        }
         window.addEventListener('pageshow', function (e) {
             var nav = performance.getEntriesByType('navigation')[0];
             if (e.persisted || (nav && nav.type === 'back_forward')) {
-                clearForm();
-                setTimeout(clearForm, 50); // jaga-jaga kalau browser memulihkan isian belakangan
+                window.location.reload();
             }
         });
     })();
